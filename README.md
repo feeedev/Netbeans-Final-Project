@@ -2,7 +2,7 @@
 <h3 align="center">Simple Library management System with NetBeans Java this is a part of Final Project 2nd year in Bangkok University</h3>
 
 
-<h3 align="left">ฉreator :</h3>
+<h3 align="left">Creator and Developer</h3>
 
 - 👩‍💻 Papatsiri Apipaiboon [Papatsiri2002](https://github.com/Papatsiri2002)
 
