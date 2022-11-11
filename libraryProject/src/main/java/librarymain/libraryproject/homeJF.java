@@ -44,24 +44,6 @@ public class homeJF extends javax.swing.JFrame {
         btnBorrowBk = new javax.swing.JButton();
         btnReturnBk = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
-        SearchPanel = new javax.swing.JPanel();
-        lblSearchHead = new javax.swing.JLabel();
-        SearchField = new javax.swing.JTextField();
-        btnSearch = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tableSearch = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Library Management");
@@ -196,6 +178,11 @@ public class homeJF extends javax.swing.JFrame {
 
         btnSearchBk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSearchBk.setText("Search Book");
+        btnSearchBk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchBkMouseClicked(evt);
+            }
+        });
         btnSearchBk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSearchBkActionPerformed(evt);
@@ -204,14 +191,19 @@ public class homeJF extends javax.swing.JFrame {
 
         btnBorrowBk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBorrowBk.setText("Borrow Book");
-        btnBorrowBk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBorrowBkActionPerformed(evt);
+        btnBorrowBk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBorrowBkMouseClicked(evt);
             }
         });
 
         btnReturnBk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnReturnBk.setText("Return book");
+        btnReturnBk.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnReturnBkMouseClicked(evt);
+            }
+        });
         btnReturnBk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReturnBkActionPerformed(evt);
@@ -220,6 +212,16 @@ public class homeJF extends javax.swing.JFrame {
 
         btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
+        btnLogout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLogoutMouseClicked(evt);
+            }
+        });
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -272,186 +274,8 @@ public class homeJF extends javax.swing.JFrame {
 
         getContentPane().add(panel2, "card3");
 
-        SearchPanel.setBackground(new java.awt.Color(255, 227, 227));
-        SearchPanel.setMaximumSize(new java.awt.Dimension(584, 418));
-        SearchPanel.setMinimumSize(new java.awt.Dimension(584, 418));
-        SearchPanel.setPreferredSize(new java.awt.Dimension(584, 418));
-
-        lblSearchHead.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        lblSearchHead.setText("Search Book");
-
-        SearchField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchFieldActionPerformed(evt);
-            }
-        });
-
-        btnSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        btnSearch.setText("Search");
-
-        tableSearch.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane2.setViewportView(tableSearch);
-
-        javax.swing.GroupLayout SearchPanelLayout = new javax.swing.GroupLayout(SearchPanel);
-        SearchPanel.setLayout(SearchPanelLayout);
-        SearchPanelLayout.setHorizontalGroup(
-            SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, SearchPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lblSearchHead)
-                .addGap(224, 224, 224))
-            .addGroup(SearchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(SearchPanelLayout.createSequentialGroup()
-                        .addComponent(SearchField)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        SearchPanelLayout.setVerticalGroup(
-            SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(SearchPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblSearchHead)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(SearchPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(SearchField, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 330, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(SearchPanel, "card4");
-
-        jPanel1.setBackground(new java.awt.Color(255, 227, 227));
-        jPanel1.setMaximumSize(new java.awt.Dimension(584, 418));
-        jPanel1.setMinimumSize(new java.awt.Dimension(584, 418));
-        jPanel1.setPreferredSize(new java.awt.Dimension(584, 418));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel2.setText("Borrow Book");
-
-        jTextField4.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField4.setText("0629842958");
-
-        jTextField5.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField5.setText("ID000000");
-
-        jTextField6.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField6.setText("Book Name");
-
-        jTextField7.setForeground(new java.awt.Color(204, 204, 204));
-        jTextField7.setText("20/12/23");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Book ID");
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Book Name");
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Phone");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Expected Return Date");
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jButton1.setText("Submit");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(28, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(31, 31, 31))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(220, 220, 220)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(247, 247, 247)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addGap(52, 52, 52)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addGap(49, 49, 49)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(jPanel1, "card5");
-
-        jPanel2.setBackground(new java.awt.Color(255, 227, 227));
-        jPanel2.setMaximumSize(new java.awt.Dimension(584, 418));
-        jPanel2.setMinimumSize(new java.awt.Dimension(584, 418));
-        jPanel2.setPreferredSize(new java.awt.Dimension(584, 418));
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 584, Short.MAX_VALUE)
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 418, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel2, "card6");
-
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
@@ -460,21 +284,45 @@ public class homeJF extends javax.swing.JFrame {
         panel2.setVisible(true);
     }//GEN-LAST:event_btnLoginMouseClicked
 
-    private void btnSearchBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchBkActionPerformed
-
-    private void btnBorrowBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrowBkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBorrowBkActionPerformed
-
     private void btnReturnBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReturnBkActionPerformed
 
-    private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
+    private void btnSearchBkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchBkMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_SearchFieldActionPerformed
+    }//GEN-LAST:event_btnSearchBkMouseClicked
+
+    private void btnSearchBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBkActionPerformed
+        // TODO add your handling code here:
+        SearchFrame searchShow = new SearchFrame();
+        searchShow.setVisible(true);
+        searchShow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        
+    }//GEN-LAST:event_btnSearchBkActionPerformed
+
+    private void btnBorrowBkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBorrowBkMouseClicked
+        // TODO add your handling code here:
+        BorrowFrame borrowShow = new BorrowFrame();
+        borrowShow.setVisible(true);
+        borrowShow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnBorrowBkMouseClicked
+
+    private void btnReturnBkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReturnBkMouseClicked
+        // TODO add your handling code here:
+        ReturnFrame returnShow = new ReturnFrame();
+        returnShow.setVisible(true);
+        returnShow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnReturnBkMouseClicked
+
+    private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
+        // TODO add your handling code here:
+       panel1.setVisible(true);
+       panel2.setVisible(false);
+    }//GEN-LAST:event_btnLogoutMouseClicked
+
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -516,38 +364,20 @@ public class homeJF extends javax.swing.JFrame {
     private javax.swing.JLabel LabelMadewith;
     private javax.swing.JLabel LabelPassword;
     private javax.swing.JLabel LabelUsername;
-    private javax.swing.JTextField SearchField;
-    private javax.swing.JPanel SearchPanel;
     private javax.swing.JButton btnBorrowBk;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnReturnBk;
-    private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnSearchBk;
     private javax.swing.JPasswordField inputPassword;
     private javax.swing.JTextField inputUsername;
-    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
     private javax.swing.JLabel lblBkHistoryHead;
-    private javax.swing.JLabel lblSearchHead;
     private javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JTable tableBkBorrow;
-    private javax.swing.JTable tableSearch;
     private javax.swing.JLabel txtWelcome;
     // End of variables declaration//GEN-END:variables
 }
