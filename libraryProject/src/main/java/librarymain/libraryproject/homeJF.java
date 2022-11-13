@@ -4,6 +4,13 @@
  */
 package librarymain.libraryproject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author palat
@@ -70,6 +77,11 @@ public class homeJF extends javax.swing.JFrame {
         btnLogin.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnLoginMouseClicked(evt);
+            }
+        });
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
             }
         });
 
@@ -246,7 +258,7 @@ public class homeJF extends javax.swing.JFrame {
                                 .addComponent(btnBorrowBk)
                                 .addGap(118, 118, 118)
                                 .addComponent(btnReturnBk)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 271, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -267,7 +279,7 @@ public class homeJF extends javax.swing.JFrame {
                     .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrowBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReturnBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -280,8 +292,41 @@ public class homeJF extends javax.swing.JFrame {
 
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
-        panel1.setVisible(false);
-        panel2.setVisible(true);
+        String userNameInput = inputUsername.getText();
+        String passwordInput = inputPassword.getText();
+        String[] sArray = null;
+        List<String> UsernameAll = new ArrayList<>();
+        List<String> PasswordAll = new ArrayList<>();
+        //System.out.println(userNameInput + "  " +passwordInput);
+        try {
+            Scanner in = new Scanner(new File("login.txt"));
+            while (in.hasNextLine())
+            {
+              String s = in.nextLine();  
+              sArray = s.split(",");
+              UsernameAll.add(sArray[0]);
+              PasswordAll.add(sArray[1]);
+              
+            } //papatsiri.apip Poxxy8990
+            in.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        System.out.println(UsernameAll + "\n" + PasswordAll); 
+        //Just to verify that file is being read
+        if (UsernameAll.contains(userNameInput) && PasswordAll.contains(passwordInput)) {
+            JOptionPane.showMessageDialog(null,"Login Successful", "Success",JOptionPane.INFORMATION_MESSAGE);
+            panel2.setVisible(true);
+            panel1.setVisible(false);
+         }
+         else {
+            JOptionPane.showMessageDialog(null,"Invalid Username / Password Combo", "Error",JOptionPane.ERROR_MESSAGE);
+         }
+          
+        
     }//GEN-LAST:event_btnLoginMouseClicked
 
     private void btnReturnBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBkActionPerformed
@@ -315,7 +360,9 @@ public class homeJF extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnBkMouseClicked
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
-        // TODO add your handling code here:
+       // TODO add your handling code here:
+       inputUsername.setText(null);
+       inputPassword.setText(null);
        panel1.setVisible(true);
        panel2.setVisible(false);
     }//GEN-LAST:event_btnLogoutMouseClicked
@@ -323,6 +370,10 @@ public class homeJF extends javax.swing.JFrame {
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
@@ -369,13 +420,13 @@ public class homeJF extends javax.swing.JFrame {
     private javax.swing.JButton btnLogout;
     private javax.swing.JButton btnReturnBk;
     private javax.swing.JButton btnSearchBk;
-    private javax.swing.JPasswordField inputPassword;
-    private javax.swing.JTextField inputUsername;
-    private javax.swing.JDesktopPane jDesktopPane1;
+    public javax.swing.JPasswordField inputPassword;
+    public javax.swing.JTextField inputUsername;
+    public javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBkHistoryHead;
-    private javax.swing.JPanel panel1;
+    public javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JTable tableBkBorrow;
     private javax.swing.JLabel txtWelcome;
