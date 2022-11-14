@@ -1,0 +1,3 @@
+BI387001,Steve Jobs,Walter Isaacson,20/02/22,13/03/22
+BY998137,The Giver (The Giver, #1),Lois Lowry,09/01/22,30/01/22
+QD785013,American Psycho,Bret Easton Ellis,01/12/21,21/12/21

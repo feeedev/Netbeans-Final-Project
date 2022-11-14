@@ -7,9 +7,11 @@ package librarymain.libraryproject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -289,7 +291,7 @@ public class homeJF extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+   
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
         String userNameInput = inputUsername.getText();
@@ -319,16 +321,56 @@ public class homeJF extends javax.swing.JFrame {
         //Just to verify that file is being read
         if (UsernameAll.contains(userNameInput) && PasswordAll.contains(passwordInput)) {
             JOptionPane.showMessageDialog(null,"Login Successful", "Success",JOptionPane.INFORMATION_MESSAGE);
-            panel2.setVisible(true);
-            panel1.setVisible(false);
+            SetPanelLogin(true);
          }
          else {
             JOptionPane.showMessageDialog(null,"Invalid Username / Password", "Error",JOptionPane.ERROR_MESSAGE);
          }
-          
-        
     }//GEN-LAST:event_btnLoginMouseClicked
-
+    private void SetPanelLogin(boolean setP){
+        if (setP == true) {
+            panel2.setVisible(true);
+            panel1.setVisible(false);
+            ShowBorrowHistory();
+        } else {
+            inputUsername.setText(null);
+            inputPassword.setText(null);
+            panel1.setVisible(true);
+            panel2.setVisible(false);
+        }
+    }
+    
+    private void ShowBorrowHistory() {
+        String[] BorrowHisArray = null;
+        List<String> BorrowHisID = new ArrayList<>();
+        List<String> BorrowHisName = new ArrayList<>();
+        List<String> BorrowHisAuthor = new ArrayList<>();
+        List<String> BorrowHisBorrowDate = new ArrayList<>();
+        List<String> BorrowHisReturnDate = new ArrayList<>();
+        //System.out.println(userNameInput + "  " +passwordInput);
+        try {
+            Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
+            while (BorrowFile.hasNextLine())
+            {
+              String s = BorrowFile.nextLine();  
+              BorrowHisArray = s.split(",");
+              BorrowHisID.add(BorrowHisArray[0]);
+              BorrowHisName.add(BorrowHisArray[1]);
+              BorrowHisAuthor.add(BorrowHisArray[2]);
+              BorrowHisBorrowDate.add(BorrowHisArray[3]);
+              BorrowHisReturnDate.add(BorrowHisArray[4]);
+              
+            } //papatsiri.apip Poxxy8990
+            BorrowFile.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    
     private void btnReturnBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReturnBkActionPerformed
@@ -361,10 +403,7 @@ public class homeJF extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
        // TODO add your handling code here:
-       inputUsername.setText(null);
-       inputPassword.setText(null);
-       panel1.setVisible(true);
-       panel2.setVisible(false);
+       SetPanelLogin(false);
     }//GEN-LAST:event_btnLogoutMouseClicked
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
