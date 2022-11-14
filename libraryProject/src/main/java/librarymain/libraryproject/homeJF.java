@@ -323,7 +323,7 @@ public class homeJF extends javax.swing.JFrame {
             panel1.setVisible(false);
          }
          else {
-            JOptionPane.showMessageDialog(null,"Invalid Username / Password Combo", "Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Invalid Username / Password", "Error",JOptionPane.ERROR_MESSAGE);
          }
           
         
