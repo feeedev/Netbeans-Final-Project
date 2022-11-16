@@ -4,17 +4,27 @@
  */
 package librarymain.libraryproject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.*;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author wenda
  */
 public class SearchFrame extends javax.swing.JFrame {
-
+    List<String> AllBookID = new ArrayList<>();
+    List<String> AllBookName = new ArrayList<>();
+    List<String> AllBookAuthor = new ArrayList<>();
+    List<String> AllBookLocate = new ArrayList<>();
     /**
      * Creates new form SearchFrame
      */
     public SearchFrame() {
         initComponents();
+        ShowAllBook();
     }
 
     /**
@@ -51,15 +61,33 @@ public class SearchFrame extends javax.swing.JFrame {
 
         btnSearch.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSearch.setText("Search");
+        btnSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchMouseClicked(evt);
+            }
+        });
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
 
         tableSearch.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Book ID", "Book Name", "Book Author", "Book Locate"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane2.setViewportView(tableSearch);
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
@@ -117,10 +145,51 @@ public class SearchFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    
+    private void ShowAllBook() {
+        String[] AllbookArray = null;
+        
+        try {
+            Scanner AllbookFile = new Scanner(new File("BookList.txt"));
+            while (AllbookFile.hasNextLine())
+            {
+              String s = AllbookFile.nextLine();  
+              AllbookArray = s.split(",");
+              AllBookID.add(AllbookArray[0]);
+              AllBookName.add(AllbookArray[1]);
+              AllBookAuthor.add(AllbookArray[2]);
+              AllBookLocate.add(AllbookArray[3]);
+            } //papatsiri.apip Poxxy8990
+            AllbookFile.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        for (int i =0; i < AllBookID.size(); i++){
+            Object[] BorrowRow = { AllBookID.get(i), AllBookName.get(i), 
+                AllBookAuthor.get(i), AllBookLocate.get(i)};
+            
+            DefaultTableModel tableSearchModel = (DefaultTableModel) tableSearch.getModel();
+            
+            tableSearchModel.addRow(BorrowRow);
+        }
+    }
+    
     private void SearchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_SearchFieldActionPerformed
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void btnSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchMouseClicked
+        // TODO add your handling code here:
+        String SearchF = SearchField.getText();
+        
+    }//GEN-LAST:event_btnSearchMouseClicked
 
     /**
      * @param args the command line arguments

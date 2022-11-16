@@ -4,12 +4,13 @@
  */
 package librarymain.libraryproject;
 
+import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -18,7 +19,16 @@ import javax.swing.table.DefaultTableModel;
  * @author palat
  */
 public class homeJF extends javax.swing.JFrame {
-
+    String FullName;
+    String[] BorrowHisArray = null;
+    List<String> BorrowHisID = new ArrayList<>();
+    List<String> BorrowHisName = new ArrayList<>();
+    List<String> BorrowHisAuthor = new ArrayList<>();
+    List<String> BorrowHisBorrowDate = new ArrayList<>();
+    List<String> BorrowHisReturnDate = new ArrayList<>();
+    String userNameInput;
+    String passwordInput;
+    
     /**
      * Creates new form mainJF
      */
@@ -53,6 +63,7 @@ public class homeJF extends javax.swing.JFrame {
         btnBorrowBk = new javax.swing.JButton();
         btnReturnBk = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
+        UserFullNametxt = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Library Management");
@@ -118,12 +129,12 @@ public class homeJF extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
                                 .addComponent(LabelMadewith)
                                 .addGap(15, 15, 15)))))
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(151, 151, 151)
+                .addGap(134, 134, 134)
                 .addComponent(txtWelcome)
                 .addGap(26, 26, 26)
                 .addComponent(LabelUsername)
@@ -135,7 +146,7 @@ public class homeJF extends javax.swing.JFrame {
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                 .addComponent(LabelMadewith)
                 .addGap(58, 58, 58))
         );
@@ -163,7 +174,7 @@ public class homeJF extends javax.swing.JFrame {
         panel2.setPreferredSize(new java.awt.Dimension(1040, 570));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel1.setText("Welcome Palatip Jantawong (1640704027)");
+        jLabel1.setText("Welcome");
 
         lblBkHistoryHead.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblBkHistoryHead.setText("Book borrowing history");
@@ -179,16 +190,19 @@ public class homeJF extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(tableBkBorrow);
-        if (tableBkBorrow.getColumnModel().getColumnCount() > 0) {
-            tableBkBorrow.getColumnModel().getColumn(0).setResizable(false);
-            tableBkBorrow.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         btnSearchBk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnSearchBk.setText("Search Book");
@@ -237,6 +251,16 @@ public class homeJF extends javax.swing.JFrame {
             }
         });
 
+        UserFullNametxt.setEditable(false);
+        UserFullNametxt.setBackground(new java.awt.Color(255, 227, 227));
+        UserFullNametxt.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        UserFullNametxt.setBorder(null);
+        UserFullNametxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UserFullNametxtActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
@@ -252,7 +276,10 @@ public class homeJF extends javax.swing.JFrame {
                                 .addGap(48, 48, 48)
                                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblBkHistoryHead)
-                                    .addComponent(jLabel1)))
+                                    .addGroup(panel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(UserFullNametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(panel2Layout.createSequentialGroup()
                                 .addGap(217, 217, 217)
                                 .addComponent(btnSearchBk)
@@ -260,7 +287,7 @@ public class homeJF extends javax.swing.JFrame {
                                 .addComponent(btnBorrowBk)
                                 .addGap(118, 118, 118)
                                 .addComponent(btnReturnBk)))
-                        .addGap(0, 271, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -271,8 +298,10 @@ public class homeJF extends javax.swing.JFrame {
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jLabel1)
-                .addGap(63, 63, 63)
+                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(UserFullNametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(62, 62, 62)
                 .addComponent(lblBkHistoryHead)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -281,7 +310,7 @@ public class homeJF extends javax.swing.JFrame {
                     .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrowBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReturnBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -294,11 +323,12 @@ public class homeJF extends javax.swing.JFrame {
    
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
-        String userNameInput = inputUsername.getText();
-        String passwordInput = inputPassword.getText();
+        userNameInput = inputUsername.getText();
+        passwordInput = inputPassword.getText();
         String[] sArray = null;
         List<String> UsernameAll = new ArrayList<>();
         List<String> PasswordAll = new ArrayList<>();
+        List<String> AccNameAll = new ArrayList();
         //System.out.println(userNameInput + "  " +passwordInput);
         try {
             Scanner in = new Scanner(new File("login.txt"));
@@ -308,7 +338,7 @@ public class homeJF extends javax.swing.JFrame {
               sArray = s.split(",");
               UsernameAll.add(sArray[0]);
               PasswordAll.add(sArray[1]);
-              
+              AccNameAll.add(sArray[2]);
             } //papatsiri.apip Poxxy8990
             in.close();
             
@@ -317,22 +347,27 @@ public class homeJF extends javax.swing.JFrame {
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        System.out.println(UsernameAll + "\n" + PasswordAll); 
+        // System.out.println(UsernameAll + "\n" + PasswordAll + "\n" + AccNameAll); Just testify Name
+        
         //Just to verify that file is being read
         if (UsernameAll.contains(userNameInput) && PasswordAll.contains(passwordInput)) {
             JOptionPane.showMessageDialog(null,"Login Successful", "Success",JOptionPane.INFORMATION_MESSAGE);
+            int IndexName = UsernameAll.indexOf(userNameInput);
+            FullName = AccNameAll.get(IndexName);
+            UserFullNametxt.setText(AccNameAll.get(IndexName));
             SetPanelLogin(true);
          }
          else {
-            JOptionPane.showMessageDialog(null,"Invalid Username / Password", "Error",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Invalid Username / Password", 
+                    "Error",JOptionPane.ERROR_MESSAGE);
          }
     }//GEN-LAST:event_btnLoginMouseClicked
     private void SetPanelLogin(boolean setP){
         if (setP == true) {
+            ShowBorrowHistory();
             panel2.setVisible(true);
             panel1.setVisible(false);
-            ShowBorrowHistory();
-        } else {
+        } else{
             inputUsername.setText(null);
             inputPassword.setText(null);
             panel1.setVisible(true);
@@ -341,12 +376,7 @@ public class homeJF extends javax.swing.JFrame {
     }
     
     private void ShowBorrowHistory() {
-        String[] BorrowHisArray = null;
-        List<String> BorrowHisID = new ArrayList<>();
-        List<String> BorrowHisName = new ArrayList<>();
-        List<String> BorrowHisAuthor = new ArrayList<>();
-        List<String> BorrowHisBorrowDate = new ArrayList<>();
-        List<String> BorrowHisReturnDate = new ArrayList<>();
+        
         //System.out.println(userNameInput + "  " +passwordInput);
         try {
             Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
@@ -354,11 +384,14 @@ public class homeJF extends javax.swing.JFrame {
             {
               String s = BorrowFile.nextLine();  
               BorrowHisArray = s.split(",");
-              BorrowHisID.add(BorrowHisArray[0]);
-              BorrowHisName.add(BorrowHisArray[1]);
-              BorrowHisAuthor.add(BorrowHisArray[2]);
-              BorrowHisBorrowDate.add(BorrowHisArray[3]);
-              BorrowHisReturnDate.add(BorrowHisArray[4]);
+              if (userNameInput.equals(BorrowHisArray[5])) {
+                    BorrowHisID.add(BorrowHisArray[0]);
+                    BorrowHisName.add(BorrowHisArray[1]);
+                    BorrowHisAuthor.add(BorrowHisArray[2]);
+                    BorrowHisBorrowDate.add(BorrowHisArray[3]);
+                    BorrowHisReturnDate.add(BorrowHisArray[4]);
+              }
+          
               
             } //papatsiri.apip Poxxy8990
             BorrowFile.close();
@@ -368,7 +401,12 @@ public class homeJF extends javax.swing.JFrame {
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        
+        DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
+        for (int i = 0; i < BorrowHisID.size(); i++){
+            Object[] BorrowRow = { BorrowHisID.get(i), BorrowHisName.get(i), 
+                BorrowHisAuthor.get(i), BorrowHisBorrowDate.get(i), BorrowHisReturnDate.get(i)};
+            BorrowModel.addRow(BorrowRow);
+        }
     }
     
     private void btnReturnBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBkActionPerformed
@@ -389,6 +427,7 @@ public class homeJF extends javax.swing.JFrame {
 
     private void btnBorrowBkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBorrowBkMouseClicked
         // TODO add your handling code here:
+        
         BorrowFrame borrowShow = new BorrowFrame();
         borrowShow.setVisible(true);
         borrowShow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -403,6 +442,14 @@ public class homeJF extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
        // TODO add your handling code here:
+       DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
+       BorrowModel.setRowCount(0);
+       BorrowHisArray = null;
+       BorrowHisID.removeAll(BorrowHisID);
+       BorrowHisName.removeAll(BorrowHisName);
+       BorrowHisAuthor.removeAll(BorrowHisAuthor);
+       BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
+       BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
        SetPanelLogin(false);
     }//GEN-LAST:event_btnLogoutMouseClicked
 
@@ -413,6 +460,10 @@ public class homeJF extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void UserFullNametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFullNametxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UserFullNametxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -454,6 +505,7 @@ public class homeJF extends javax.swing.JFrame {
     private javax.swing.JLabel LabelMadewith;
     private javax.swing.JLabel LabelPassword;
     private javax.swing.JLabel LabelUsername;
+    private javax.swing.JTextField UserFullNametxt;
     private javax.swing.JButton btnBorrowBk;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogout;
