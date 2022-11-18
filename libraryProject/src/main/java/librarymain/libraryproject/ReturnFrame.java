@@ -4,19 +4,66 @@
  */
 package librarymain.libraryproject;
 
+import java.awt.Color;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author wenda
  */
 public class ReturnFrame extends javax.swing.JFrame {
-
+    String[] ReturnArray = null;
+    List<String> ReturnID = new ArrayList<>();
+    List<String> ReturnName = new ArrayList<>();
+    List<String> ReturnAuthor = new ArrayList<>();
+    List<String> ReturnBorrowDate = new ArrayList<>();
+    List<String> ReturnReturnDate = new ArrayList<>();
     /**
      * Creates new form ReturnFrame
      */
     public ReturnFrame() {
         initComponents();
+        ShowReturn();
     }
-
+    private void ShowReturn() {
+        
+        //System.out.println(userNameInput + "  " +passwordInput);
+        try {
+            Scanner ReturnFile = new Scanner(new File("BorrowList.txt"));
+            while (ReturnFile.hasNextLine())
+            {
+              String s = ReturnFile.nextLine();  
+              ReturnArray = s.split(",");
+              if (homeJF.userNameInput.equals(ReturnArray[5])) {
+                    ReturnID.add(ReturnArray[0]);
+                    ReturnName.add(ReturnArray[1]);
+                    ReturnAuthor.add(ReturnArray[2]);
+                    ReturnBorrowDate.add(ReturnArray[3]);
+                    ReturnReturnDate.add(ReturnArray[4]);
+              }
+          
+              
+            } //papatsiri.apip Poxxy8990
+            ReturnFile.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        String [] ComboID = new String[ReturnID.size()];
+        for(int i = 0; i < ReturnID.size(); i++) {
+            ComboID[i] = ReturnID.get(i);
+        }
+        jComboBox1.setBackground(Color.white);
+        jComboBox1.setForeground(Color.black);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(ComboID));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,14 +77,15 @@ public class ReturnFrame extends javax.swing.JFrame {
         lblReturnHead = new javax.swing.JLabel();
         labelBookID = new javax.swing.JLabel();
         labelReturnDate = new javax.swing.JLabel();
-        bookIDInput = new javax.swing.JTextField();
         returnDateInput = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        labelReturnDate1 = new javax.swing.JLabel();
+        returnBookName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(584, 418));
         setMinimumSize(new java.awt.Dimension(584, 418));
-        setPreferredSize(new java.awt.Dimension(584, 418));
         setResizable(false);
 
         returnPanel.setBackground(new java.awt.Color(255, 227, 227));
@@ -45,17 +93,15 @@ public class ReturnFrame extends javax.swing.JFrame {
         lblReturnHead.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblReturnHead.setText("Return Book");
 
-        labelBookID.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelBookID.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelBookID.setText("Book ID");
 
-        labelReturnDate.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        labelReturnDate.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelReturnDate.setText("Return Date");
 
-        bookIDInput.setForeground(new java.awt.Color(204, 204, 204));
-        bookIDInput.setText("ID000000");
-
+        returnDateInput.setEditable(false);
+        returnDateInput.setBackground(new java.awt.Color(255, 255, 255));
         returnDateInput.setForeground(new java.awt.Color(204, 204, 204));
-        returnDateInput.setText("20/12/23");
         returnDateInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnDateInputActionPerformed(evt);
@@ -65,46 +111,66 @@ public class ReturnFrame extends javax.swing.JFrame {
         btnSubmit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSubmit.setText("Submit");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        labelReturnDate1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        labelReturnDate1.setText("Book Name");
+
+        returnBookName.setEditable(false);
+        returnBookName.setBackground(new java.awt.Color(255, 255, 255));
+        returnBookName.setForeground(new java.awt.Color(204, 204, 204));
+        returnBookName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnBookNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout returnPanelLayout = new javax.swing.GroupLayout(returnPanel);
         returnPanel.setLayout(returnPanelLayout);
         returnPanelLayout.setHorizontalGroup(
             returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(returnPanelLayout.createSequentialGroup()
-                .addGap(54, 54, 54)
-                .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(labelReturnDate)
-                    .addComponent(labelBookID))
-                .addGap(18, 18, 18)
                 .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(bookIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(returnDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
+                    .addGroup(returnPanelLayout.createSequentialGroup()
+                        .addGap(61, 61, 61)
+                        .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelReturnDate)
+                            .addComponent(labelBookID)
+                            .addComponent(labelReturnDate1))
+                        .addGap(18, 18, 18)
+                        .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(returnDateInput)
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(returnBookName)))
+                    .addGroup(returnPanelLayout.createSequentialGroup()
+                        .addGap(245, 245, 245)
+                        .addComponent(lblReturnHead)))
+                .addContainerGap(92, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, returnPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, returnPanelLayout.createSequentialGroup()
-                        .addComponent(lblReturnHead)
-                        .addGap(224, 224, 224))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, returnPanelLayout.createSequentialGroup()
-                        .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(246, 246, 246))))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(266, 266, 266))
         );
         returnPanelLayout.setVerticalGroup(
             returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(returnPanelLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
+                .addGap(18, 18, 18)
                 .addComponent(lblReturnHead)
-                .addGap(38, 38, 38)
+                .addGap(50, 50, 50)
                 .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelBookID)
-                    .addComponent(bookIDInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelReturnDate1)
+                    .addComponent(returnBookName, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelReturnDate)
                     .addComponent(returnDateInput, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(btnSubmit, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(77, 77, 77))
+                .addGap(82, 82, 82))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -124,6 +190,10 @@ public class ReturnFrame extends javax.swing.JFrame {
     private void returnDateInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnDateInputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_returnDateInputActionPerformed
+
+    private void returnBookNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_returnBookNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,11 +231,13 @@ public class ReturnFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField bookIDInput;
     private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel labelBookID;
     private javax.swing.JLabel labelReturnDate;
+    private javax.swing.JLabel labelReturnDate1;
     private javax.swing.JLabel lblReturnHead;
+    private javax.swing.JTextField returnBookName;
     private javax.swing.JTextField returnDateInput;
     private javax.swing.JPanel returnPanel;
     // End of variables declaration//GEN-END:variables

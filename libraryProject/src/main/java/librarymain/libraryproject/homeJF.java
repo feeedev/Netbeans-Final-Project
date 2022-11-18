@@ -4,7 +4,10 @@
  */
 package librarymain.libraryproject;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -20,20 +23,21 @@ import javax.swing.table.DefaultTableModel;
  */
 public class homeJF extends javax.swing.JFrame {
     String FullName;
-    String[] BorrowHisArray = null;
-    List<String> BorrowHisID = new ArrayList<>();
-    List<String> BorrowHisName = new ArrayList<>();
-    List<String> BorrowHisAuthor = new ArrayList<>();
-    List<String> BorrowHisBorrowDate = new ArrayList<>();
-    List<String> BorrowHisReturnDate = new ArrayList<>();
-    String userNameInput;
     String passwordInput;
+    String[] BorrowHisArray = null;
+    public static List<String> BorrowHisID = new ArrayList<>();
+    public static List<String> BorrowHisName = new ArrayList<>();
+    public static List<String> BorrowHisAuthor = new ArrayList<>();
+    public static List<String> BorrowHisBorrowDate = new ArrayList<>();
+    public static List<String> BorrowHisReturnDate = new ArrayList<>();
+    public static String userNameInput;
     
     /**
      * Creates new form mainJF
      */
     public homeJF() {
         initComponents();
+        LoadImage();
     }
 
     /**
@@ -54,6 +58,7 @@ public class homeJF extends javax.swing.JFrame {
         inputPassword = new javax.swing.JPasswordField();
         btnLogin = new javax.swing.JButton();
         LabelMadewith = new javax.swing.JLabel();
+        lblImageLocal = new javax.swing.JLabel();
         panel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         lblBkHistoryHead = new javax.swing.JLabel();
@@ -107,36 +112,42 @@ public class homeJF extends javax.swing.JFrame {
         jDesktopPane1.setLayer(inputPassword, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(btnLogin, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(LabelMadewith, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane1.setLayer(lblImageLocal, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(479, 479, 479)
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(372, 372, 372)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(LabelPassword)
-                            .addComponent(LabelUsername)
-                            .addComponent(txtWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputUsername)
-                            .addComponent(inputPassword)))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(479, 479, 479)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                                .addComponent(LabelMadewith)
-                                .addGap(15, 15, 15)))))
-                .addContainerGap(377, Short.MAX_VALUE))
+                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                        .addComponent(LabelMadewith)
+                        .addGap(15, 15, 15)))
+                .addContainerGap(459, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(455, 455, 455))
+            .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                .addGap(372, 372, 372)
+                .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(LabelPassword)
+                    .addComponent(LabelUsername)
+                    .addComponent(txtWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(inputUsername)
+                    .addComponent(inputPassword))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(134, 134, 134)
+                .addGap(25, 25, 25)
+                .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48)
                 .addComponent(txtWelcome)
-                .addGap(26, 26, 26)
+                .addGap(16, 16, 16)
                 .addComponent(LabelUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -146,9 +157,9 @@ public class homeJF extends javax.swing.JFrame {
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                 .addComponent(LabelMadewith)
-                .addGap(58, 58, 58))
+                .addGap(28, 28, 28))
         );
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
@@ -287,7 +298,7 @@ public class homeJF extends javax.swing.JFrame {
                                 .addComponent(btnBorrowBk)
                                 .addGap(118, 118, 118)
                                 .addComponent(btnReturnBk)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -310,7 +321,7 @@ public class homeJF extends javax.swing.JFrame {
                     .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrowBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReturnBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -320,7 +331,30 @@ public class homeJF extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-   
+    
+    private void LoadImage() {
+        ImageIcon imageIcon1 = new ImageIcon("BULogo.png");
+        Image image1 = imageIcon1.getImage();
+        Image newimg1 = getScaledImage(image1,91,91);
+        imageIcon1 = new ImageIcon(newimg1);
+        lblImageLocal.setIcon(imageIcon1);
+    }
+    
+    private Image getScaledImage(Image srcImg, int w, int h){
+
+        BufferedImage resizedImg = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
+
+        Graphics2D g2 = resizedImg.createGraphics();
+
+        g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION, 
+	RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+
+        g2.drawImage(srcImg, 0, 0, w, h, null);
+        g2.dispose();
+
+        return resizedImg;
+    }
+    
     private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
         // TODO add your handling code here:
         userNameInput = inputUsername.getText();
@@ -347,13 +381,14 @@ public class homeJF extends javax.swing.JFrame {
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        // System.out.println(UsernameAll + "\n" + PasswordAll + "\n" + AccNameAll); Just testify Name
+//        System.out.println(UsernameAll + "\n" + PasswordAll + "\n" + AccNameAll);
         
         //Just to verify that file is being read
         if (UsernameAll.contains(userNameInput) && PasswordAll.contains(passwordInput)) {
             JOptionPane.showMessageDialog(null,"Login Successful", "Success",JOptionPane.INFORMATION_MESSAGE);
             int IndexName = UsernameAll.indexOf(userNameInput);
             FullName = AccNameAll.get(IndexName);
+            //System.out.println(FullName);
             UserFullNametxt.setText(AccNameAll.get(IndexName));
             SetPanelLogin(true);
          }
@@ -361,6 +396,7 @@ public class homeJF extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Invalid Username / Password", 
                     "Error",JOptionPane.ERROR_MESSAGE);
          }
+        
     }//GEN-LAST:event_btnLoginMouseClicked
     private void SetPanelLogin(boolean setP){
         if (setP == true) {
@@ -375,7 +411,7 @@ public class homeJF extends javax.swing.JFrame {
         }
     }
     
-    private void ShowBorrowHistory() {
+    public void ShowBorrowHistory() {
         
         //System.out.println(userNameInput + "  " +passwordInput);
         try {
@@ -408,7 +444,7 @@ public class homeJF extends javax.swing.JFrame {
             BorrowModel.addRow(BorrowRow);
         }
     }
-    
+
     private void btnReturnBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBkActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnReturnBkActionPerformed
@@ -517,6 +553,7 @@ public class homeJF extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBkHistoryHead;
+    private javax.swing.JLabel lblImageLocal;
     public javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
     private javax.swing.JTable tableBkBorrow;
