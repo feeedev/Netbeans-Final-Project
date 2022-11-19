@@ -7,6 +7,8 @@ package librarymain.libraryproject;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -125,10 +127,6 @@ public class homeJF extends javax.swing.JFrame {
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(455, 455, 455))
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
@@ -146,16 +144,20 @@ public class homeJF extends javax.swing.JFrame {
                             .addComponent(txtWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inputUsername)
                             .addComponent(inputPassword))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(332, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDesktopPane1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(453, 453, 453))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(40, 40, 40)
                 .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
+                .addGap(38, 38, 38)
                 .addComponent(txtWelcome)
-                .addGap(16, 16, 16)
+                .addGap(52, 52, 52)
                 .addComponent(LabelUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,9 +165,9 @@ public class homeJF extends javax.swing.JFrame {
                 .addComponent(LabelPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(55, 55, 55)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addGap(63, 63, 63)
                 .addComponent(LabelMadewith)
                 .addGap(28, 28, 28))
         );
@@ -192,7 +194,7 @@ public class homeJF extends javax.swing.JFrame {
         panel2.setMinimumSize(new java.awt.Dimension(1040, 570));
         panel2.setPreferredSize(new java.awt.Dimension(1040, 570));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         jLabel1.setText("Welcome");
 
         lblBkHistoryHead.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -272,7 +274,7 @@ public class homeJF extends javax.swing.JFrame {
 
         UserFullNametxt.setEditable(false);
         UserFullNametxt.setBackground(new java.awt.Color(255, 227, 227));
-        UserFullNametxt.setFont(new java.awt.Font("Helvetica Neue", 0, 24)); // NOI18N
+        UserFullNametxt.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 24)); // NOI18N
         UserFullNametxt.setBorder(null);
         UserFullNametxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -329,7 +331,7 @@ public class homeJF extends javax.swing.JFrame {
                     .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrowBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReturnBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -490,17 +492,26 @@ public class homeJF extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
        // TODO add your handling code here:
-       DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
-       BorrowModel.setRowCount(0);
-       BorrowHisArray = null;
-       BorrowHisID.removeAll(BorrowHisID);
-       BorrowHisName.removeAll(BorrowHisName);
-       BorrowHisAuthor.removeAll(BorrowHisAuthor);
-       BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
-       BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
-       SetPanelLogin(false);
+       btnLogout.addActionListener(new CloseListener());
+//       DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
+//       BorrowModel.setRowCount(0);
+//       BorrowHisArray = null;
+//       BorrowHisID.removeAll(BorrowHisID);
+//       BorrowHisName.removeAll(BorrowHisName);
+//       BorrowHisAuthor.removeAll(BorrowHisAuthor);
+//       BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
+//       BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
+//       SetPanelLogin(false);
     }//GEN-LAST:event_btnLogoutMouseClicked
 
+    private class CloseListener implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            //DO SOMETHING
+            System.exit(0);
+        }
+    }
+    
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLogoutActionPerformed

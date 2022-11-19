@@ -18,10 +18,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import static librarymain.libraryproject.BorrowFrame.indexBK;
 import static librarymain.libraryproject.BorrowFrame.selectedbkAuthor;
 import static librarymain.libraryproject.BorrowFrame.selectedbkName;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserAcc;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserAuthor;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserBdate;
 import static librarymain.libraryproject.homeJF.AllBorrowAlluserID;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserName;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserPhone;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserRedate;
+import static librarymain.libraryproject.homeJF.BorrowHisArray;
+import static librarymain.libraryproject.homeJF.BorrowHisAuthor;
+import static librarymain.libraryproject.homeJF.BorrowHisBorrowDate;
+import static librarymain.libraryproject.homeJF.BorrowHisID;
+import static librarymain.libraryproject.homeJF.BorrowHisName;
+import static librarymain.libraryproject.homeJF.BorrowHisReturnDate;
+import static librarymain.libraryproject.homeJF.tableBkBorrow;
+import static librarymain.libraryproject.homeJF.userNameInput;
 
 /**
  *
@@ -39,6 +54,7 @@ public class ReturnFrame extends javax.swing.JFrame {
     String selectedbkAuthor;
     int indexBK;
     Object selectedItem;
+    String formattedDate;
     /**
      * Creates new form ReturnFrame
      */
@@ -55,7 +71,8 @@ public class ReturnFrame extends javax.swing.JFrame {
             {
               String s = ReturnFile.nextLine();  
               ReturnArray = s.split(",");
-              if (homeJF.userNameInput.equals(ReturnArray[5])) {
+              
+              if (homeJF.userNameInput.equals(ReturnArray[5]) && ReturnArray[4].equals("not returned yet")) {
                     ReturnID.add(ReturnArray[0]);
                     ReturnName.add(ReturnArray[1]);
                     ReturnAuthor.add(ReturnArray[2]);
@@ -231,7 +248,7 @@ public class ReturnFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
-        String formattedDate = myDateObj.format(myFormatObj);
+        formattedDate = myDateObj.format(myFormatObj);
         ReturnCombo.addActionListener (new ActionListener () {
          @Override
          public void actionPerformed(ActionEvent e) {
@@ -260,16 +277,39 @@ public class ReturnFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (selectedItem == "Select Book" || returnBookName == null || returnDateInput.getText() == null) {
                 JOptionPane.showMessageDialog(null,
-                    "Please complete the information.", "Borrow Book",
+                    "Please complete the information.", "Return Book",
                     JOptionPane.INFORMATION_MESSAGE);
         } else{
             try {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt", true));
+                new FileWriter("BorrowList.txt", false).close();
+//                File file = new File("BorrowList.txt");
+                BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt",true));
+                List<Integer> AllIndexBookChange = new ArrayList<>();
+                String BookIDchange = (String) selectedItem;
+                for (int i = 0; i < AllBorrowAlluserID.size(); i++){
+                    if (AllBorrowAlluserAcc.get(i).equals(userNameInput) && AllBorrowAlluserID.get(i).equals(BookIDchange)){
+                    AllIndexBookChange.add(i);
+                    }
+                }
+                System.out.println(AllIndexBookChange);
+                for (int i =0; i < AllIndexBookChange.size(); i++) {
+                    AllBorrowAlluserRedate.set(AllIndexBookChange.get(i), formattedDate);
+                }
+                writer.write(AllBorrowAlluserID.get(0)+","+AllBorrowAlluserName.get(0)+","+AllBorrowAlluserAuthor.get(0)+","+
+                        AllBorrowAlluserBdate.get(0)+","+AllBorrowAlluserRedate.get(0)+","+AllBorrowAlluserAcc.get(0)+","+AllBorrowAlluserPhone.get(0));
+                for (int k = 1; k < AllBorrowAlluserID.size(); k++){
+                    writer.append("\n"+AllBorrowAlluserID.get(k)+","+AllBorrowAlluserName.get(k)+","+AllBorrowAlluserAuthor.get(k)+","+
+                            AllBorrowAlluserBdate.get(k)+","+AllBorrowAlluserRedate.get(k)+","+AllBorrowAlluserAcc.get(k)+","+AllBorrowAlluserPhone.get(k));
+                }
                 writer.close();
                 JOptionPane.showMessageDialog(null,
-                    "Successfully! Borrow", "Successfully",
+                    "Successfully! Returned", "Successfully",
                     JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Successfully wrote to the file.");
+                ReturnCombo.setSelectedIndex(0);
+                returnBookName.setText(null);
+                returnDateInput.setText(null);
+                UpdateBorrow();
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,
                     "An error occurred.", "Error",
@@ -279,6 +319,56 @@ public class ReturnFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSubmitMouseClicked
 
+     public void UpdateBorrow(){
+        DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
+        BorrowModel.setRowCount(0);
+        BorrowHisArray = null;
+        BorrowHisID.removeAll(BorrowHisID);
+        BorrowHisName.removeAll(BorrowHisName);
+        BorrowHisAuthor.removeAll(BorrowHisAuthor);
+        BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
+        BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
+        AllBorrowAlluserID.removeAll(AllBorrowAlluserID);
+        AllBorrowAlluserName.removeAll(AllBorrowAlluserName);
+        AllBorrowAlluserAuthor.removeAll(AllBorrowAlluserAuthor);
+        AllBorrowAlluserBdate.removeAll(AllBorrowAlluserBdate);
+        AllBorrowAlluserRedate.removeAll(AllBorrowAlluserRedate);
+        AllBorrowAlluserAcc.removeAll(AllBorrowAlluserAcc);
+        AllBorrowAlluserPhone.removeAll(AllBorrowAlluserPhone);
+        try {
+            Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
+            while (BorrowFile.hasNextLine())
+            {
+                String s = BorrowFile.nextLine();  
+                BorrowHisArray = s.split(",");
+                if (userNameInput.equals(BorrowHisArray[5])) {
+                        BorrowHisID.add(BorrowHisArray[0]);
+                        BorrowHisName.add(BorrowHisArray[1]);
+                        BorrowHisAuthor.add(BorrowHisArray[2]);
+                        BorrowHisBorrowDate.add(BorrowHisArray[3]);
+                        BorrowHisReturnDate.add(BorrowHisArray[4]);
+                }
+                AllBorrowAlluserID.add(BorrowHisArray[0]);
+                AllBorrowAlluserName.add(BorrowHisArray[1]);
+                AllBorrowAlluserAuthor.add(BorrowHisArray[2]);
+                AllBorrowAlluserBdate.add(BorrowHisArray[3]);
+                AllBorrowAlluserRedate.add(BorrowHisArray[4]);
+                AllBorrowAlluserAcc.add(BorrowHisArray[5]);
+                AllBorrowAlluserPhone.add(BorrowHisArray[6]);
+            } //papatsiri.apip Poxxy8990
+            BorrowFile.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        for (int i = 0; i < BorrowHisID.size(); i++){
+            Object[] BorrowRow = { BorrowHisID.get(i), BorrowHisName.get(i), 
+                BorrowHisAuthor.get(i), BorrowHisBorrowDate.get(i), BorrowHisReturnDate.get(i)};
+            BorrowModel.addRow(BorrowRow);
+        }
+    }
     /**
      * @param args the command line arguments
      */

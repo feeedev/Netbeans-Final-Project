@@ -19,6 +19,13 @@ import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserAcc;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserAuthor;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserBdate;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserID;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserName;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserPhone;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserRedate;
 import static librarymain.libraryproject.homeJF.BorrowHisArray;
 import static librarymain.libraryproject.homeJF.BorrowHisAuthor;
 import static librarymain.libraryproject.homeJF.BorrowHisBorrowDate;
@@ -27,7 +34,6 @@ import static librarymain.libraryproject.homeJF.BorrowHisName;
 import static librarymain.libraryproject.homeJF.BorrowHisReturnDate;
 import static librarymain.libraryproject.homeJF.tableBkBorrow;
 import static librarymain.libraryproject.homeJF.userNameInput;
-import static librarymain.libraryproject.homeJF.AllBorrowAlluserID;
 
 /**
  *
@@ -244,9 +250,15 @@ public class BorrowFrame extends javax.swing.JFrame {
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
         String formattedDate = myDateObj.format(myFormatObj);
+        int indexBRID = BorrowHisID.indexOf(selectedItem);
         if (selectedItem == "Select Book" || inputbookPhone.equals("") || bkNameInput.getText() == null || bkAuthortxtF.getText() == null) {
                 JOptionPane.showMessageDialog(null,
                     "Please complete the information.", "Borrow Book",
+                    JOptionPane.INFORMATION_MESSAGE);
+        }
+        else if (BorrowHisID.contains(selectedItem)){
+                JOptionPane.showMessageDialog(null,
+                    "You have already borrowed this book.", "Borrow Book",
                     JOptionPane.INFORMATION_MESSAGE);
         } else{
             try {
@@ -284,6 +296,13 @@ public class BorrowFrame extends javax.swing.JFrame {
         BorrowHisAuthor.removeAll(BorrowHisAuthor);
         BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
         BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
+        AllBorrowAlluserID.removeAll(AllBorrowAlluserID);
+        AllBorrowAlluserName.removeAll(AllBorrowAlluserName);
+        AllBorrowAlluserAuthor.removeAll(AllBorrowAlluserAuthor);
+        AllBorrowAlluserBdate.removeAll(AllBorrowAlluserBdate);
+        AllBorrowAlluserRedate.removeAll(AllBorrowAlluserRedate);
+        AllBorrowAlluserAcc.removeAll(AllBorrowAlluserAcc);
+        AllBorrowAlluserPhone.removeAll(AllBorrowAlluserPhone);
         try {
             Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
             while (BorrowFile.hasNextLine())
@@ -298,6 +317,12 @@ public class BorrowFrame extends javax.swing.JFrame {
                         BorrowHisReturnDate.add(BorrowHisArray[4]);
                 }
                 AllBorrowAlluserID.add(BorrowHisArray[0]);
+                AllBorrowAlluserName.add(BorrowHisArray[1]);
+                AllBorrowAlluserAuthor.add(BorrowHisArray[2]);
+                AllBorrowAlluserBdate.add(BorrowHisArray[3]);
+                AllBorrowAlluserRedate.add(BorrowHisArray[4]);
+                AllBorrowAlluserAcc.add(BorrowHisArray[5]);
+                AllBorrowAlluserPhone.add(BorrowHisArray[6]);
             } //papatsiri.apip Poxxy8990
             BorrowFile.close();
             
