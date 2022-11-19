@@ -24,12 +24,19 @@ import javax.swing.table.DefaultTableModel;
 public class homeJF extends javax.swing.JFrame {
     String FullName;
     String passwordInput;
-    String[] BorrowHisArray = null;
+    public static String[] BorrowHisArray;
     public static List<String> BorrowHisID = new ArrayList<>();
     public static List<String> BorrowHisName = new ArrayList<>();
     public static List<String> BorrowHisAuthor = new ArrayList<>();
     public static List<String> BorrowHisBorrowDate = new ArrayList<>();
     public static List<String> BorrowHisReturnDate = new ArrayList<>();
+    public static List<String> AllBorrowAlluserID = new ArrayList<>();
+    public static List<String> AllBorrowAlluserName = new ArrayList<>();
+    public static List<String> AllBorrowAlluserAuthor = new ArrayList<>();
+    public static List<String> AllBorrowAlluserBdate = new ArrayList<>();
+    public static List<String> AllBorrowAlluserRedate = new ArrayList<>();
+    public static List<String> AllBorrowAlluserAcc = new ArrayList<>();
+    public static List<String> AllBorrowAlluserPhone = new ArrayList<>();
     public static String userNameInput;
     
     /**
@@ -390,7 +397,7 @@ public class homeJF extends javax.swing.JFrame {
             int IndexName = UsernameAll.indexOf(userNameInput);
             FullName = AccNameAll.get(IndexName);
             //System.out.println(FullName);
-            UserFullNametxt.setText(AccNameAll.get(IndexName));
+            UserFullNametxt.setText(FullName);
             SetPanelLogin(true);
          }
          else {
@@ -419,20 +426,24 @@ public class homeJF extends javax.swing.JFrame {
             Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
             while (BorrowFile.hasNextLine())
             {
-              String s = BorrowFile.nextLine();  
-              BorrowHisArray = s.split(",");
-              if (userNameInput.equals(BorrowHisArray[5])) {
+                String s = BorrowFile.nextLine();  
+                BorrowHisArray = s.split(",");
+                if (userNameInput.equals(BorrowHisArray[5])) {
                     BorrowHisID.add(BorrowHisArray[0]);
                     BorrowHisName.add(BorrowHisArray[1]);
                     BorrowHisAuthor.add(BorrowHisArray[2]);
                     BorrowHisBorrowDate.add(BorrowHisArray[3]);
                     BorrowHisReturnDate.add(BorrowHisArray[4]);
-              }
-          
-              
+                }
+                AllBorrowAlluserID.add(BorrowHisArray[0]);
+                AllBorrowAlluserName.add(BorrowHisArray[1]);
+                AllBorrowAlluserAuthor.add(BorrowHisArray[2]);
+                AllBorrowAlluserBdate.add(BorrowHisArray[3]);
+                AllBorrowAlluserRedate.add(BorrowHisArray[4]);
+                AllBorrowAlluserAcc.add(BorrowHisArray[5]);
+                AllBorrowAlluserPhone.add(BorrowHisArray[6]);
             } //papatsiri.apip Poxxy8990
             BorrowFile.close();
-            
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,
                     "User Database Not Found", "Error",
@@ -557,7 +568,7 @@ public class homeJF extends javax.swing.JFrame {
     private javax.swing.JLabel lblImageLocal;
     public javax.swing.JPanel panel1;
     private javax.swing.JPanel panel2;
-    private javax.swing.JTable tableBkBorrow;
+    public static javax.swing.JTable tableBkBorrow;
     private javax.swing.JLabel txtWelcome;
     // End of variables declaration//GEN-END:variables
 }

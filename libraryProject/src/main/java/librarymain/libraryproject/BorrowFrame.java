@@ -7,7 +7,6 @@ package librarymain.libraryproject;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -19,6 +18,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import static librarymain.libraryproject.homeJF.BorrowHisArray;
+import static librarymain.libraryproject.homeJF.BorrowHisAuthor;
+import static librarymain.libraryproject.homeJF.BorrowHisBorrowDate;
+import static librarymain.libraryproject.homeJF.BorrowHisID;
+import static librarymain.libraryproject.homeJF.BorrowHisName;
+import static librarymain.libraryproject.homeJF.BorrowHisReturnDate;
+import static librarymain.libraryproject.homeJF.tableBkBorrow;
+import static librarymain.libraryproject.homeJF.userNameInput;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserID;
 
 /**
  *
@@ -33,6 +42,7 @@ public class BorrowFrame extends javax.swing.JFrame {
     List<String> AllBookName = new ArrayList<>();
     List<String> AllBookAuthor = new ArrayList<>();
     String inputbookPhone; // phoneNoInput
+    Object selectedItem;
     /**
      * Creates new form NewJFrame
      */
@@ -61,10 +71,14 @@ public class BorrowFrame extends javax.swing.JFrame {
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        String [] ComboID = new String[AllBookID.size()];
+        String [] ComboID = new String[AllBookID.size()+1];
+        ComboID[0] = "Select Book";
+        int indexget = 0;
         for(int i = 0; i < AllBookID.size(); i++) {
-            ComboID[i] = AllBookID.get(i);
+            ComboID[i+1] = AllBookID.get(indexget);
+            indexget = indexget + 1;
         }
+        bkIDcombo.setSelectedItem(ComboID[0]);
         bkIDcombo.setBackground(Color.white);
         bkIDcombo.setForeground(Color.black);
         bkIDcombo.setModel(new javax.swing.DefaultComboBoxModel(ComboID));
@@ -230,14 +244,27 @@ public class BorrowFrame extends javax.swing.JFrame {
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
         String formattedDate = myDateObj.format(myFormatObj);
-        try {
+        if (selectedItem == "Select Book" || inputbookPhone.equals("") || bkNameInput.getText() == null || bkAuthortxtF.getText() == null) {
+                JOptionPane.showMessageDialog(null,
+                    "Please complete the information.", "Borrow Book",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else{
+            try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt", true));
-                writer.append("\n"+AllBookID.get(indexBK)+","+selectedbkName+","+selectedbkAuthor+","+formattedDate+","+"not returned yet"+","+homeJF.userNameInput+","+inputbookPhone);
+                if (AllBorrowAlluserID.isEmpty()){
+                    writer.append(AllBookID.get(indexBK)+","+selectedbkName+","+selectedbkAuthor+","+formattedDate+","+"not returned yet"+","+homeJF.userNameInput+","+inputbookPhone);
+                } else {
+                    writer.append("\n"+AllBookID.get(indexBK)+","+selectedbkName+","+selectedbkAuthor+","+formattedDate+","+"not returned yet"+","+homeJF.userNameInput+","+inputbookPhone);
+                }
                 writer.close();
                 JOptionPane.showMessageDialog(null,
                     "Successfully! Borrow", "Successfully",
                     JOptionPane.INFORMATION_MESSAGE);
-                
+                bkIDcombo.setSelectedIndex(0);
+                bkNameInput.setText(null);
+                bkAuthortxtF.setText(null);
+                phoneNoInput.setText(null);
+                UpdateBorrow();
                 System.out.println("Successfully wrote to the file.");
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,
@@ -245,15 +272,53 @@ public class BorrowFrame extends javax.swing.JFrame {
                     JOptionPane.ERROR_MESSAGE);
                 System.out.println("An error occurred.");
             }
+        }
     }//GEN-LAST:event_btnSubmitMouseClicked
-
+    
+    public void UpdateBorrow(){
+        DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
+        BorrowModel.setRowCount(0);
+        BorrowHisArray = null;
+        BorrowHisID.removeAll(BorrowHisID);
+        BorrowHisName.removeAll(BorrowHisName);
+        BorrowHisAuthor.removeAll(BorrowHisAuthor);
+        BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
+        BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
+        try {
+            Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
+            while (BorrowFile.hasNextLine())
+            {
+                String s = BorrowFile.nextLine();  
+                BorrowHisArray = s.split(",");
+                if (userNameInput.equals(BorrowHisArray[5])) {
+                        BorrowHisID.add(BorrowHisArray[0]);
+                        BorrowHisName.add(BorrowHisArray[1]);
+                        BorrowHisAuthor.add(BorrowHisArray[2]);
+                        BorrowHisBorrowDate.add(BorrowHisArray[3]);
+                        BorrowHisReturnDate.add(BorrowHisArray[4]);
+                }
+                AllBorrowAlluserID.add(BorrowHisArray[0]);
+            } //papatsiri.apip Poxxy8990
+            BorrowFile.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        for (int i = 0; i < BorrowHisID.size(); i++){
+            Object[] BorrowRow = { BorrowHisID.get(i), BorrowHisName.get(i), 
+                BorrowHisAuthor.get(i), BorrowHisBorrowDate.get(i), BorrowHisReturnDate.get(i)};
+            BorrowModel.addRow(BorrowRow);
+        }
+    }
     private void bkIDcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkIDcomboActionPerformed
         // TODO add your handling code here:
          bkIDcombo.addActionListener (new ActionListener () {
          @Override
          public void actionPerformed(ActionEvent e) {
-                Object selectedItem = bkIDcombo.getSelectedItem();
-                if (selectedItem != null)
+                selectedItem = bkIDcombo.getSelectedItem();
+                if (selectedItem != "Select Book")
                 {
                     selectedItemStr = selectedItem.toString();
                     indexBK = AllBookID.indexOf(selectedItem);
@@ -261,6 +326,9 @@ public class BorrowFrame extends javax.swing.JFrame {
                     selectedbkAuthor = AllBookAuthor.get(indexBK);
                     bkNameInput.setText(selectedbkName);
                     bkAuthortxtF.setText(selectedbkAuthor);
+                } else {
+                    bkNameInput.setText(null);
+                    bkAuthortxtF.setText(null);
                 }
             }
         });

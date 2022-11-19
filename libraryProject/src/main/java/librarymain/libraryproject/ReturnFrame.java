@@ -5,12 +5,23 @@
 package librarymain.libraryproject;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import static librarymain.libraryproject.BorrowFrame.indexBK;
+import static librarymain.libraryproject.BorrowFrame.selectedbkAuthor;
+import static librarymain.libraryproject.BorrowFrame.selectedbkName;
+import static librarymain.libraryproject.homeJF.AllBorrowAlluserID;
 
 /**
  *
@@ -23,6 +34,11 @@ public class ReturnFrame extends javax.swing.JFrame {
     List<String> ReturnAuthor = new ArrayList<>();
     List<String> ReturnBorrowDate = new ArrayList<>();
     List<String> ReturnReturnDate = new ArrayList<>();
+    String selectedItemStr;
+    String selectedbkName;
+    String selectedbkAuthor;
+    int indexBK;
+    Object selectedItem;
     /**
      * Creates new form ReturnFrame
      */
@@ -56,13 +72,16 @@ public class ReturnFrame extends javax.swing.JFrame {
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-        String [] ComboID = new String[ReturnID.size()];
+        String [] ComboID = new String[ReturnID.size()+1];
+        ComboID[0] = "Select Book";
+        int indexget = 0;
         for(int i = 0; i < ReturnID.size(); i++) {
-            ComboID[i] = ReturnID.get(i);
+            ComboID[i+1] = ReturnID.get(indexget);
+            indexget = indexget + 1;
         }
-        jComboBox1.setBackground(Color.white);
-        jComboBox1.setForeground(Color.black);
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(ComboID));
+        ReturnCombo.setBackground(Color.white);
+        ReturnCombo.setForeground(Color.black);
+        ReturnCombo.setModel(new javax.swing.DefaultComboBoxModel(ComboID));
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -79,7 +98,7 @@ public class ReturnFrame extends javax.swing.JFrame {
         labelReturnDate = new javax.swing.JLabel();
         returnDateInput = new javax.swing.JTextField();
         btnSubmit = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        ReturnCombo = new javax.swing.JComboBox<>();
         labelReturnDate1 = new javax.swing.JLabel();
         returnBookName = new javax.swing.JTextField();
 
@@ -101,7 +120,6 @@ public class ReturnFrame extends javax.swing.JFrame {
 
         returnDateInput.setEditable(false);
         returnDateInput.setBackground(new java.awt.Color(255, 255, 255));
-        returnDateInput.setForeground(new java.awt.Color(204, 204, 204));
         returnDateInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnDateInputActionPerformed(evt);
@@ -110,15 +128,29 @@ public class ReturnFrame extends javax.swing.JFrame {
 
         btnSubmit.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSubmit.setText("Submit");
+        btnSubmit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSubmitMouseClicked(evt);
+            }
+        });
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSubmitActionPerformed(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ReturnCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        ReturnCombo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReturnComboActionPerformed(evt);
+            }
+        });
 
         labelReturnDate1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         labelReturnDate1.setText("Book Name");
 
         returnBookName.setEditable(false);
         returnBookName.setBackground(new java.awt.Color(255, 255, 255));
-        returnBookName.setForeground(new java.awt.Color(204, 204, 204));
         returnBookName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 returnBookNameActionPerformed(evt);
@@ -140,7 +172,7 @@ public class ReturnFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(returnDateInput)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ReturnCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(returnBookName)))
                     .addGroup(returnPanelLayout.createSequentialGroup()
                         .addGap(245, 245, 245)
@@ -159,7 +191,7 @@ public class ReturnFrame extends javax.swing.JFrame {
                 .addGap(50, 50, 50)
                 .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelBookID)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ReturnCombo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(returnPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelReturnDate1)
@@ -194,6 +226,58 @@ public class ReturnFrame extends javax.swing.JFrame {
     private void returnBookNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnBookNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_returnBookNameActionPerformed
+
+    private void ReturnComboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReturnComboActionPerformed
+        // TODO add your handling code here:
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
+        String formattedDate = myDateObj.format(myFormatObj);
+        ReturnCombo.addActionListener (new ActionListener () {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+                selectedItem = ReturnCombo.getSelectedItem();
+                if (selectedItem != "Select Book")
+                {
+                    selectedItemStr = selectedItem.toString();
+                    indexBK = ReturnID.indexOf(selectedItem);
+                    selectedbkName = ReturnName.get(indexBK);
+                    selectedbkAuthor = ReturnAuthor.get(indexBK);
+                    returnBookName.setText(selectedbkName);
+                    returnDateInput.setText(formattedDate);
+                } else {
+                    returnBookName.setText(null);
+                    returnDateInput.setText(null);
+                }
+            }
+        });
+    }//GEN-LAST:event_ReturnComboActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
+        // TODO add your handling code here:
+        if (selectedItem == "Select Book" || returnBookName == null || returnDateInput.getText() == null) {
+                JOptionPane.showMessageDialog(null,
+                    "Please complete the information.", "Borrow Book",
+                    JOptionPane.INFORMATION_MESSAGE);
+        } else{
+            try {
+                BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt", true));
+                writer.close();
+                JOptionPane.showMessageDialog(null,
+                    "Successfully! Borrow", "Successfully",
+                    JOptionPane.INFORMATION_MESSAGE);
+                System.out.println("Successfully wrote to the file.");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null,
+                    "An error occurred.", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+                System.out.println("An error occurred.");
+            }
+        }
+    }//GEN-LAST:event_btnSubmitMouseClicked
 
     /**
      * @param args the command line arguments
@@ -231,8 +315,8 @@ public class ReturnFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> ReturnCombo;
     private javax.swing.JButton btnSubmit;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel labelBookID;
     private javax.swing.JLabel labelReturnDate;
     private javax.swing.JLabel labelReturnDate1;
