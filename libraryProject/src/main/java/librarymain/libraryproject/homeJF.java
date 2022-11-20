@@ -223,6 +223,9 @@ public class homeJF extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableBkBorrow.setGridColor(new java.awt.Color(204, 255, 255));
+        tableBkBorrow.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        tableBkBorrow.setShowGrid(true);
         jScrollPane1.setViewportView(tableBkBorrow);
 
         btnSearchBk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
