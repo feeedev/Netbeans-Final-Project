@@ -106,11 +106,6 @@ public class homeJF extends javax.swing.JFrame {
                 btnLoginMouseClicked(evt);
             }
         });
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
-            }
-        });
 
         LabelMadewith.setText("Made with ❤");
 
@@ -235,11 +230,6 @@ public class homeJF extends javax.swing.JFrame {
                 btnSearchBkMouseClicked(evt);
             }
         });
-        btnSearchBk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchBkActionPerformed(evt);
-            }
-        });
 
         btnBorrowBk.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         btnBorrowBk.setText("Borrow Book");
@@ -256,11 +246,6 @@ public class homeJF extends javax.swing.JFrame {
                 btnReturnBkMouseClicked(evt);
             }
         });
-        btnReturnBk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturnBkActionPerformed(evt);
-            }
-        });
 
         btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLogout.setText("Logout");
@@ -269,21 +254,11 @@ public class homeJF extends javax.swing.JFrame {
                 btnLogoutMouseClicked(evt);
             }
         });
-        btnLogout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogoutActionPerformed(evt);
-            }
-        });
 
         UserFullNametxt.setEditable(false);
         UserFullNametxt.setBackground(new java.awt.Color(255, 227, 227));
         UserFullNametxt.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 24)); // NOI18N
         UserFullNametxt.setBorder(null);
-        UserFullNametxt.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserFullNametxtActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
@@ -462,21 +437,12 @@ public class homeJF extends javax.swing.JFrame {
         }
     }
 
-    private void btnReturnBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnBkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReturnBkActionPerformed
-
     private void btnSearchBkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchBkMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchBkMouseClicked
-
-    private void btnSearchBkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchBkActionPerformed
         // TODO add your handling code here:
         SearchFrame searchShow = new SearchFrame();
         searchShow.setVisible(true);
         searchShow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        
-    }//GEN-LAST:event_btnSearchBkActionPerformed
+    }//GEN-LAST:event_btnSearchBkMouseClicked
 
     private void btnBorrowBkMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBorrowBkMouseClicked
         // TODO add your handling code here:
@@ -515,18 +481,6 @@ public class homeJF extends javax.swing.JFrame {
         }
     }
     
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogoutActionPerformed
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void UserFullNametxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFullNametxtActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UserFullNametxtActionPerformed
-
     /**
      * @param args the command line arguments
      */

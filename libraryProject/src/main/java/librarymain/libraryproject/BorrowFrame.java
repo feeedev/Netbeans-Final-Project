@@ -158,11 +158,6 @@ public class BorrowFrame extends javax.swing.JFrame {
                 bkIDcomboItemStateChanged(evt);
             }
         });
-        bkIDcombo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bkIDcomboActionPerformed(evt);
-            }
-        });
 
         bkAuthorLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         bkAuthorLabel.setText("Book Author");
@@ -337,9 +332,9 @@ public class BorrowFrame extends javax.swing.JFrame {
             BorrowModel.addRow(BorrowRow);
         }
     }
-    private void bkIDcomboActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bkIDcomboActionPerformed
+    private void bkIDcomboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bkIDcomboItemStateChanged
         // TODO add your handling code here:
-         bkIDcombo.addActionListener (new ActionListener () {
+        bkIDcombo.addActionListener (new ActionListener () {
          @Override
          public void actionPerformed(ActionEvent e) {
                 selectedItem = bkIDcombo.getSelectedItem();
@@ -357,10 +352,6 @@ public class BorrowFrame extends javax.swing.JFrame {
                 }
             }
         });
-    }//GEN-LAST:event_bkIDcomboActionPerformed
-
-    private void bkIDcomboItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_bkIDcomboItemStateChanged
-        // TODO add your handling code here:
     }//GEN-LAST:event_bkIDcomboItemStateChanged
 
     /**
