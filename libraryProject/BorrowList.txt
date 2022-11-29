@@ -1,0 +1,6 @@
+BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,26/11/22,26/11/22,admin,3213
+BY998134,The Lightning Thief (Percy Jackson and the Olympians #1),Rick Riordan,26/11/22,26/11/22,admin,6578979
+BY998136,Twilight (The Twilight Saga #1),Stephenie Meyer,26/11/22,26/11/22,admin,6789
+HB112009,Bury My Heart at Wounded Knee: An Indian History of the American West,Dee Brown,26/11/22,26/11/22,admin,7890
+NB453007,How to Win Friends and Influence People,Dale Carnegie,29/11/22,29/11/22,admin,3214234
+HB112014,A Short History of Nearly Everything,Bill Bryson,29/11/22,29/11/22,admin,231321
