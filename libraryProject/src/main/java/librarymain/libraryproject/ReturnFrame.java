@@ -147,8 +147,6 @@ public class ReturnFrame extends javax.swing.JFrame {
             }
         });
 
-        ReturnCombo.setBackground(new java.awt.Color(255, 255, 255));
-        ReturnCombo.setForeground(new java.awt.Color(0, 0, 0));
         ReturnCombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ReturnCombo.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {

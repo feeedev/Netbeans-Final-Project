@@ -4,6 +4,7 @@
  */
 package librarymain.libraryproject;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
@@ -47,6 +48,8 @@ public class homeJF extends javax.swing.JFrame {
     public homeJF() {
         initComponents();
         LoadImage();
+        btnLogin.setBackground(Color.pink);
+        btnLogin.setOpaque(true);
     }
 
     /**
@@ -78,6 +81,7 @@ public class homeJF extends javax.swing.JFrame {
         btnReturnBk = new javax.swing.JButton();
         btnLogout = new javax.swing.JButton();
         UserFullNametxt = new javax.swing.JTextField();
+        btnAdmin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Library Management");
@@ -160,7 +164,7 @@ public class homeJF extends javax.swing.JFrame {
                 .addComponent(LabelPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(LabelMadewith)
@@ -260,6 +264,14 @@ public class homeJF extends javax.swing.JFrame {
         UserFullNametxt.setFont(new java.awt.Font("Tw Cen MT Condensed", 1, 24)); // NOI18N
         UserFullNametxt.setBorder(null);
 
+        btnAdmin.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        btnAdmin.setText("Manage Borrow Book");
+        btnAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAdminMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout panel2Layout = new javax.swing.GroupLayout(panel2);
         panel2.setLayout(panel2Layout);
         panel2Layout.setHorizontalGroup(
@@ -290,12 +302,14 @@ public class homeJF extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(329, 329, 329)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
         panel2Layout.setVerticalGroup(
             panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -309,9 +323,11 @@ public class homeJF extends javax.swing.JFrame {
                     .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBorrowBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReturnBk, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAdmin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
         );
 
         getContentPane().add(panel2, "card3");
@@ -387,17 +403,25 @@ public class homeJF extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnLoginMouseClicked
     private void SetPanelLogin(boolean setP){
-        if (setP == true) {
+        if (setP == true && userNameInput.equals("admin")) {
             ShowBorrowHistory();
             panel2.setVisible(true);
             panel1.setVisible(false);
-        } else{
+            btnAdmin.setVisible(true);
+        } else if (setP == true){
+            ShowBorrowHistory();
+            panel2.setVisible(true);
+            panel1.setVisible(false);
+            btnAdmin.setVisible(false);
+        }
+        else{
             inputUsername.setText(null);
             inputPassword.setText(null);
             panel1.setVisible(true);
             panel2.setVisible(false);
         }
     }
+ 
     
     public void ShowBorrowHistory() {
         
@@ -461,7 +485,8 @@ public class homeJF extends javax.swing.JFrame {
 
     private void btnLogoutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogoutMouseClicked
        // TODO add your handling code here:
-       btnLogout.addActionListener(new CloseListener());
+       System.exit(0);
+       //btnLogout.addActionListener(new CloseListener());
 //       DefaultTableModel BorrowModel = (DefaultTableModel) tableBkBorrow.getModel();
 //       BorrowModel.setRowCount(0);
 //       BorrowHisArray = null;
@@ -471,8 +496,16 @@ public class homeJF extends javax.swing.JFrame {
 //       BorrowHisBorrowDate.removeAll(BorrowHisBorrowDate);
 //       BorrowHisReturnDate.removeAll(BorrowHisReturnDate);
 //       SetPanelLogin(false);
+
     }//GEN-LAST:event_btnLogoutMouseClicked
 
+    private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
+        // TODO add your handling code here:
+        AdminFrame adminShow = new AdminFrame();
+        adminShow.setVisible(true);
+        adminShow.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+    }//GEN-LAST:event_btnAdminMouseClicked
+/*
     private class CloseListener implements ActionListener{
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -480,7 +513,7 @@ public class homeJF extends javax.swing.JFrame {
             System.exit(0);
         }
     }
-    
+  */  
     /**
      * @param args the command line arguments
      */
@@ -522,6 +555,7 @@ public class homeJF extends javax.swing.JFrame {
     private javax.swing.JLabel LabelPassword;
     private javax.swing.JLabel LabelUsername;
     private javax.swing.JTextField UserFullNametxt;
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JButton btnBorrowBk;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnLogout;
