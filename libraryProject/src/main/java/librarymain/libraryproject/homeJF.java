@@ -4,16 +4,18 @@
  */
 package librarymain.libraryproject;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,8 +25,7 @@ import javax.swing.table.DefaultTableModel;
  * @author palat
  */
 public class homeJF extends javax.swing.JFrame {
-    String FullName;
-    String passwordInput;
+    libraData libraData  = new libraData();
     public static String[] BorrowHisArray;
     public static List<String> BorrowHisID = new ArrayList<>();
     public static List<String> BorrowHisName = new ArrayList<>();
@@ -38,7 +39,6 @@ public class homeJF extends javax.swing.JFrame {
     public static List<String> AllBorrowAlluserRedate = new ArrayList<>();
     public static List<String> AllBorrowAlluserAcc = new ArrayList<>();
     public static List<String> AllBorrowAlluserPhone = new ArrayList<>();
-    public static String userNameInput;
     
     /**
      * Creates new form mainJF
@@ -46,8 +46,17 @@ public class homeJF extends javax.swing.JFrame {
     public homeJF() {
         initComponents();
         LoadImage();
-        btnLogin.setBackground(Color.pink);
         btnLogin.setOpaque(true);
+        inputUsername.requestFocusInWindow();
+        Action action = new AbstractAction()
+        {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                LoginCheck();
+            }
+        };
+        inputPassword.addActionListener( action );
     }
 
     /**
@@ -92,7 +101,9 @@ public class homeJF extends javax.swing.JFrame {
         jDesktopPane1.setBackground(new java.awt.Color(255, 227, 227));
 
         txtWelcome.setFont(new java.awt.Font("Malayalam Sangam MN", 1, 18)); // NOI18N
+        txtWelcome.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         txtWelcome.setText("Welcome! Bangkok University Student");
+        txtWelcome.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         LabelUsername.setText("Username");
 
@@ -112,6 +123,12 @@ public class homeJF extends javax.swing.JFrame {
 
         LabelMadewith.setText("Made with ❤");
 
+        lblImageLocal.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lblImageLocal.setIconTextGap(0);
+        lblImageLocal.setMaximumSize(new java.awt.Dimension(91, 91));
+        lblImageLocal.setMinimumSize(new java.awt.Dimension(91, 91));
+        lblImageLocal.setPreferredSize(new java.awt.Dimension(91, 91));
+
         jDesktopPane1.setLayer(txtWelcome, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(LabelUsername, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane1.setLayer(inputUsername, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -128,33 +145,33 @@ public class homeJF extends javax.swing.JFrame {
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
                 .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(372, 372, 372)
-                        .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(LabelPassword)
-                            .addComponent(LabelUsername)
-                            .addComponent(txtWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inputUsername)
-                            .addComponent(inputPassword)))
-                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
                         .addGap(468, 468, 468)
-                        .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                        .addGap(464, 464, 464)
+                        .addGap(346, 346, 346)
                         .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(LabelMadewith)))))
-                .addContainerGap(377, Short.MAX_VALUE))
+                            .addGroup(jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(LabelPassword)
+                                .addComponent(LabelUsername)
+                                .addComponent(inputUsername)
+                                .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtWelcome)))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(476, 476, 476)
+                        .addComponent(LabelMadewith))
+                    .addGroup(jDesktopPane1Layout.createSequentialGroup()
+                        .addGap(461, 461, 461)
+                        .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(358, Short.MAX_VALUE))
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane1Layout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(lblImageLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(39, 39, 39)
-                .addComponent(txtWelcome)
-                .addGap(52, 52, 52)
+                .addGap(35, 35, 35)
+                .addComponent(lblImageLocal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(45, 45, 45)
+                .addComponent(txtWelcome, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
                 .addComponent(LabelUsername)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,9 +179,9 @@ public class homeJF extends javax.swing.JFrame {
                 .addComponent(LabelPassword)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(inputPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47)
+                .addGap(54, 54, 54)
                 .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
                 .addComponent(LabelMadewith)
                 .addGap(28, 28, 28))
         );
@@ -280,23 +297,20 @@ public class homeJF extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1))
                     .addGroup(panel2Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
                         .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblBkHistoryHead)
                             .addGroup(panel2Layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addGroup(panel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lblBkHistoryHead)
-                                    .addGroup(panel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(UserFullNametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(panel2Layout.createSequentialGroup()
-                                .addGap(192, 192, 192)
-                                .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(99, 99, 99)
-                                .addComponent(btnBorrowBk)
-                                .addGap(118, 118, 118)
-                                .addComponent(btnReturnBk)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(UserFullNametxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(panel2Layout.createSequentialGroup()
+                        .addGap(192, 192, 192)
+                        .addComponent(btnSearchBk, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99)
+                        .addComponent(btnBorrowBk)
+                        .addGap(118, 118, 118)
+                        .addComponent(btnReturnBk)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -356,52 +370,51 @@ public class homeJF extends javax.swing.JFrame {
 
         return resizedImg;
     }
-    
-    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
-        // TODO add your handling code here:
-        userNameInput = inputUsername.getText();
-        passwordInput = inputPassword.getText();
+    private void LoginCheck() {
+        libraData.setUserNameInput(inputUsername.getText());
+        libraData.setPasswordInput(inputPassword.getText());
         String[] sArray = null;
         List<String> UsernameAll = new ArrayList<>();
         List<String> PasswordAll = new ArrayList<>();
         List<String> AccNameAll = new ArrayList();
-        //System.out.println(userNameInput + "  " +passwordInput);
         try {
-            Scanner in = new Scanner(new File("login.txt"));
-            while (in.hasNextLine())
+            Scanner loginfile = new Scanner(new File("login.txt"));
+            while (loginfile.hasNextLine())
             {
-              String s = in.nextLine();  
+              String s = loginfile.nextLine();  
               sArray = s.split(",");
               UsernameAll.add(sArray[0]);
               PasswordAll.add(sArray[1]);
               AccNameAll.add(sArray[2]);
             } //papatsiri.apip Poxxy8990
-            in.close();
+            loginfile.close();
             
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null,
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-//        System.out.println(UsernameAll + "\n" + PasswordAll + "\n" + AccNameAll);
         
         //Just to verify that file is being read
-        if (UsernameAll.contains(userNameInput) && PasswordAll.contains(passwordInput)) {
+        if (UsernameAll.contains(libraData.getUserNameInput()) && PasswordAll.contains(libraData.getPasswordInput())) {
             JOptionPane.showMessageDialog(null,"Login Successful", "Success",JOptionPane.INFORMATION_MESSAGE);
-            int IndexName = UsernameAll.indexOf(userNameInput);
-            FullName = AccNameAll.get(IndexName);
-            //System.out.println(FullName);
-            UserFullNametxt.setText(FullName);
+            int IndexName = UsernameAll.indexOf(libraData.getUserNameInput());
+            libraData.setFullName(AccNameAll.get(IndexName));
+            UserFullNametxt.setText(libraData.getFullName());
             SetPanelLogin(true);
          }
          else {
             JOptionPane.showMessageDialog(null,"Invalid Username / Password", 
                     "Error",JOptionPane.ERROR_MESSAGE);
          }
-        
+    }
+    
+    private void btnLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLoginMouseClicked
+        LoginCheck();
     }//GEN-LAST:event_btnLoginMouseClicked
+
     private void SetPanelLogin(boolean setP){
-        if (setP == true && userNameInput.equals("admin")) {
+        if (setP == true && libraData.getUserNameInput().equals("admin")) {
             ShowBorrowHistory();
             panel2.setVisible(true);
             panel1.setVisible(false);
@@ -423,14 +436,13 @@ public class homeJF extends javax.swing.JFrame {
     
     public void ShowBorrowHistory() {
         
-        //System.out.println(userNameInput + "  " +passwordInput);
         try {
             Scanner BorrowFile = new Scanner(new File("BorrowList.txt"));
             while (BorrowFile.hasNextLine())
             {
                 String s = BorrowFile.nextLine();  
                 BorrowHisArray = s.split(",");
-                if (userNameInput.equals(BorrowHisArray[5])) {
+                if (libraData.getUserNameInput().equals(BorrowHisArray[5])) {
                     BorrowHisID.add(BorrowHisArray[0]);
                     BorrowHisName.add(BorrowHisArray[1]);
                     BorrowHisAuthor.add(BorrowHisArray[2]);

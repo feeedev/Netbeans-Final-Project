@@ -4,6 +4,7 @@
  */
 package librarymain.libraryproject;
 
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -28,6 +29,24 @@ public class SearchFrame extends javax.swing.JFrame {
     public SearchFrame() {
         initComponents();
         ShowAllBook();
+        tableSearch.addMouseListener(new MouseAdapter() {
+        @Override
+        public void mousePressed(MouseEvent mouseEvent) {
+                JTable table =(JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    // your valueChanged overridden method 
+                    System.out.println(row);
+                    BorrowFrame brF = new BorrowFrame();
+                    brF.setVisible(true);
+                    brF.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                    brF.bkIDcombo.setSelectedIndex(row+1);
+                    brF.bkNameInput.setText(BorrowFrame.AllBookName.get(row));
+                    brF.bkAuthortxtF.setText(BorrowFrame.AllBookAuthor.get(row));
+                }
+            }
+        });
     }
 
     /**

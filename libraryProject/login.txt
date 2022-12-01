@@ -1,4 +1,5 @@
 admin,admin,Palatip Admin (Admin Dev)
+fee,fee,Palatip Jantawong (fee test acc)
 sittichok.juns@bumail.net,1620706836,SITTICHOK JUNSONG (1620706836)
 chithinan.chan@bumail.net,1640703177,CHITHINAN CHANTRA (1640703177)
 chiwaphat.tits@bumail.net,1640703664,CHIWAPHAT TITSUK (1640703664)

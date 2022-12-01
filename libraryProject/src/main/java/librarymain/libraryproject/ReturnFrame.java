@@ -33,7 +33,6 @@ import static librarymain.libraryproject.homeJF.BorrowHisID;
 import static librarymain.libraryproject.homeJF.BorrowHisName;
 import static librarymain.libraryproject.homeJF.BorrowHisReturnDate;
 import static librarymain.libraryproject.homeJF.tableBkBorrow;
-import static librarymain.libraryproject.homeJF.userNameInput;
 
 /**
  *
@@ -46,12 +45,6 @@ public class ReturnFrame extends javax.swing.JFrame {
     List<String> ReturnAuthor = new ArrayList<>();
     List<String> ReturnBorrowDate = new ArrayList<>();
     List<String> ReturnReturnDate = new ArrayList<>();
-    String selectedItemStr;
-    String selectedbkName;
-    String selectedbkAuthor;
-    int indexBK;
-    Object selectedItem;
-    String formattedDate;
     /**
      * Creates new form ReturnFrame
      */
@@ -61,7 +54,6 @@ public class ReturnFrame extends javax.swing.JFrame {
     }
     private void ShowReturn() {
         
-        //System.out.println(userNameInput + "  " +passwordInput);
         try {
             Scanner ReturnFile = new Scanner(new File("BorrowList.txt"));
             while (ReturnFile.hasNextLine())
@@ -69,7 +61,7 @@ public class ReturnFrame extends javax.swing.JFrame {
               String s = ReturnFile.nextLine();  
               ReturnArray = s.split(",");
               
-              if (homeJF.userNameInput.equals(ReturnArray[5]) && ReturnArray[4].equals("not returned yet")) {
+              if (libraData.getUserNameInput().equals(ReturnArray[5]) && ReturnArray[4].equals("not returned yet")) {
                     ReturnID.add(ReturnArray[0]);
                     ReturnName.add(ReturnArray[1]);
                     ReturnAuthor.add(ReturnArray[2]);
@@ -234,15 +226,14 @@ public class ReturnFrame extends javax.swing.JFrame {
 //                File file = new File("BorrowList.txt");
                 BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt",true));
                 List<Integer> AllIndexBookChange = new ArrayList<>();
-                String BookIDchange = (String) selectedItem;
+                String BookIDchange = (String) libraData.getSelectedItemRe();
                 for (int i = 0; i < AllBorrowAlluserID.size(); i++){
-                    if (AllBorrowAlluserAcc.get(i).equals(userNameInput) && AllBorrowAlluserID.get(i).equals(BookIDchange)){
+                    if (AllBorrowAlluserAcc.get(i).equals(libraData.getUserNameInput()) && AllBorrowAlluserID.get(i).equals(BookIDchange)){
                     AllIndexBookChange.add(i);
                     }
                 }
-                System.out.println(AllIndexBookChange);
                 for (int i =0; i < AllIndexBookChange.size(); i++) {
-                    AllBorrowAlluserRedate.set(AllIndexBookChange.get(i), formattedDate);
+                    AllBorrowAlluserRedate.set(AllIndexBookChange.get(i), libraData.getFormattedDate());
                 }
                 writer.write(AllBorrowAlluserID.get(0)+","+AllBorrowAlluserName.get(0)+","+AllBorrowAlluserAuthor.get(0)+","+
                         AllBorrowAlluserBdate.get(0)+","+AllBorrowAlluserRedate.get(0)+","+AllBorrowAlluserAcc.get(0)+","+AllBorrowAlluserPhone.get(0));
@@ -254,16 +245,16 @@ public class ReturnFrame extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null,
                     "Successfully! Returned", "Successfully",
                     JOptionPane.INFORMATION_MESSAGE);
-                System.out.println("Successfully wrote to the file.");
                 ReturnCombo.setSelectedIndex(0);
                 returnBookName.setText(null);
                 returnDateInput.setText(null);
                 UpdateBorrow();
+                this.dispose();
+                this.setVisible(false);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,
                     "An error occurred.", "Error",
                     JOptionPane.ERROR_MESSAGE);
-                System.out.println("An error occurred.");
             }
         }
     }//GEN-LAST:event_btnSubmitMouseClicked
@@ -272,20 +263,19 @@ public class ReturnFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");
-        formattedDate = myDateObj.format(myFormatObj);
+        libraData.setFormattedDate(myDateObj.format(myFormatObj));
         ReturnCombo.addActionListener (new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent e) {
-                selectedItem = ReturnCombo.getSelectedItem();
-                System.out.println(selectedItem);
-                if (selectedItem != "Select Book")
+                libraData.setSelectedItemRe(ReturnCombo.getSelectedItem());
+                if (libraData.getSelectedItemRe() != "Select Book")
                 {
-                    selectedItemStr = selectedItem.toString();
-                    indexBK = ReturnID.indexOf(selectedItem);
-                    selectedbkName = ReturnName.get(indexBK);
-                    selectedbkAuthor = ReturnAuthor.get(indexBK);
-                    returnBookName.setText(selectedbkName);
-                    returnDateInput.setText(formattedDate);
+                    libraData.setSelectedItemReStr(libraData.getSelectedItemRe().toString());
+                    libraData.setIndexBKre(ReturnID.indexOf(libraData.getSelectedItemRe()));
+                    libraData.setSelectedbkReName(ReturnName.get(libraData.getIndexBKre()));
+                    libraData.setSelectedbkReAuthor(ReturnAuthor.get(libraData.getIndexBKre()));
+                    returnBookName.setText(libraData.getSelectedbkReName());
+                    returnDateInput.setText(libraData.getFormattedDate());
                 } else {
                     returnBookName.setText(null);
                     returnDateInput.setText(null);
@@ -316,7 +306,7 @@ public class ReturnFrame extends javax.swing.JFrame {
             {
                 String s = BorrowFile.nextLine();  
                 BorrowHisArray = s.split(",");
-                if (userNameInput.equals(BorrowHisArray[5])) {
+                if (libraData.getUserNameInput().equals(BorrowHisArray[5])) {
                         BorrowHisID.add(BorrowHisArray[0]);
                         BorrowHisName.add(BorrowHisArray[1]);
                         BorrowHisAuthor.add(BorrowHisArray[2]);

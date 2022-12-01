@@ -33,22 +33,16 @@ import static librarymain.libraryproject.homeJF.BorrowHisID;
 import static librarymain.libraryproject.homeJF.BorrowHisName;
 import static librarymain.libraryproject.homeJF.BorrowHisReturnDate;
 import static librarymain.libraryproject.homeJF.tableBkBorrow;
-import static librarymain.libraryproject.homeJF.userNameInput;
 
 /**
  *
  * @author wenda
  */
 public class BorrowFrame extends javax.swing.JFrame {
-    public static String selectedItemStr;
-    public static int indexBK;
-    public static String selectedbkName;
-    public static String selectedbkAuthor;
-    List<String> AllBookID = new ArrayList<>();
-    List<String> AllBookName = new ArrayList<>();
-    List<String> AllBookAuthor = new ArrayList<>();
-    String inputbookPhone; // phoneNoInput
-    Object selectedItem;
+    libraData libraData = new libraData();
+    public static List<String> AllBookID = new ArrayList<>();
+    public static List<String> AllBookName = new ArrayList<>();
+    public static List<String> AllBookAuthor = new ArrayList<>();
     /**
      * Creates new form NewJFrame
      */
@@ -84,7 +78,7 @@ public class BorrowFrame extends javax.swing.JFrame {
             ComboID[i+1] = AllBookID.get(indexget);
             indexget = indexget + 1;
         }
-        bkIDcombo.setSelectedItem(ComboID[0]);
+//        bkIDcombo.setSelectedItem(ComboID[0]);
         bkIDcombo.setBackground(Color.white);
         bkIDcombo.setForeground(Color.black);
         bkIDcombo.setModel(new javax.swing.DefaultComboBoxModel(ComboID));
@@ -232,27 +226,31 @@ public class BorrowFrame extends javax.swing.JFrame {
 
     private void btnSubmitMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMouseClicked
         // TODO add your handling code here:
-        inputbookPhone = phoneNoInput.getText();
+        libraData.setInputbookPhone(phoneNoInput.getText());
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
         String formattedDate = myDateObj.format(myFormatObj);
-        int indexBRID = BorrowHisID.indexOf(selectedItem);
-        if (selectedItem == "Select Book" || inputbookPhone.equals("") || bkNameInput.getText() == null || bkAuthortxtF.getText() == null) {
+        int indexBRID = BorrowHisID.indexOf(libraData.getSelectedItem());
+        if (libraData.getSelectedItem() == "Select Book" || libraData.getInputbookPhone().equals("") || bkNameInput.getText() == null || bkAuthortxtF.getText() == null) {
                 JOptionPane.showMessageDialog(null,
                     "Please complete the information.", "Borrow Book",
                     JOptionPane.INFORMATION_MESSAGE);
         }
-        else if (BorrowHisID.contains(selectedItem)){
+        else if (BorrowHisID.contains(libraData.getSelectedItem()) && BorrowHisReturnDate.get(indexBRID).equals("not returned yet")){
                 JOptionPane.showMessageDialog(null,
                     "You have already borrowed this book.", "Borrow Book",
                     JOptionPane.INFORMATION_MESSAGE);
+                bkIDcombo.setSelectedIndex(0);
+                bkNameInput.setText(null);
+                bkAuthortxtF.setText(null);
+                phoneNoInput.setText(null);
         } else{
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt", true));
                 if (AllBorrowAlluserID.isEmpty()){
-                    writer.append(AllBookID.get(indexBK)+","+selectedbkName+","+selectedbkAuthor+","+formattedDate+","+"not returned yet"+","+homeJF.userNameInput+","+inputbookPhone);
+                    writer.append(AllBookID.get(libraData.getIndexBK())+","+libraData.getSelectedbkName()+","+libraData.getSelectedbkAuthor()+","+formattedDate+","+"not returned yet"+","+libraData.getUserNameInput()+","+libraData.getInputbookPhone());
                 } else {
-                    writer.append("\n"+AllBookID.get(indexBK)+","+selectedbkName+","+selectedbkAuthor+","+formattedDate+","+"not returned yet"+","+homeJF.userNameInput+","+inputbookPhone);
+                    writer.append("\n"+AllBookID.get(libraData.getIndexBK())+","+libraData.getSelectedbkName()+","+libraData.getSelectedbkAuthor()+","+formattedDate+","+"not returned yet"+","+libraData.getUserNameInput()+","+libraData.getInputbookPhone());
                 }
                 writer.close();
                 JOptionPane.showMessageDialog(null,
@@ -264,6 +262,8 @@ public class BorrowFrame extends javax.swing.JFrame {
                 phoneNoInput.setText(null);
                 UpdateBorrow();
                 System.out.println("Successfully wrote to the file.");
+                this.dispose();
+                this.setVisible(false);
             } catch (IOException e) {
                 JOptionPane.showMessageDialog(null,
                     "An error occurred.", "Error",
@@ -295,7 +295,7 @@ public class BorrowFrame extends javax.swing.JFrame {
             {
                 String s = BorrowFile.nextLine();  
                 BorrowHisArray = s.split(",");
-                if (userNameInput.equals(BorrowHisArray[5])) {
+                if (libraData.getUserNameInput().equals(BorrowHisArray[5])) {
                         BorrowHisID.add(BorrowHisArray[0]);
                         BorrowHisName.add(BorrowHisArray[1]);
                         BorrowHisAuthor.add(BorrowHisArray[2]);
@@ -328,15 +328,15 @@ public class BorrowFrame extends javax.swing.JFrame {
         bkIDcombo.addActionListener (new ActionListener () {
          @Override
          public void actionPerformed(ActionEvent e) {
-                selectedItem = bkIDcombo.getSelectedItem();
-                if (selectedItem != "Select Book")
+                libraData.setSelectedItem(bkIDcombo.getSelectedItem());
+                if (libraData.getSelectedItem() != "Select Book")
                 {
-                    selectedItemStr = selectedItem.toString();
-                    indexBK = AllBookID.indexOf(selectedItem);
-                    selectedbkName = AllBookName.get(indexBK);
-                    selectedbkAuthor = AllBookAuthor.get(indexBK);
-                    bkNameInput.setText(selectedbkName);
-                    bkAuthortxtF.setText(selectedbkAuthor);
+                    libraData.setSelectedItemStr(libraData.getSelectedItem().toString());
+                    libraData.setIndexBK(AllBookID.indexOf(libraData.getSelectedItem()));
+                    libraData.setSelectedbkName(AllBookName.get(libraData.getIndexBK()));
+                    libraData.setSelectedbkAuthor(AllBookAuthor.get(libraData.getIndexBK()));
+                    bkNameInput.setText(libraData.getSelectedbkName());
+                    bkAuthortxtF.setText(libraData.getSelectedbkAuthor());
                 } else {
                     bkNameInput.setText(null);
                     bkAuthortxtF.setText(null);
@@ -382,15 +382,15 @@ public class BorrowFrame extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel bkAuthorLabel;
-    private javax.swing.JTextField bkAuthortxtF;
-    private javax.swing.JComboBox<String> bkIDcombo;
-    private javax.swing.JTextField bkNameInput;
+    public javax.swing.JTextField bkAuthortxtF;
+    public javax.swing.JComboBox<String> bkIDcombo;
+    public javax.swing.JTextField bkNameInput;
     private javax.swing.JPanel borrowPanel;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JLabel labelBookID;
     private javax.swing.JLabel labelBookName;
     private javax.swing.JLabel labelPhoneNo;
     private javax.swing.JLabel lblBorrowHead;
-    private javax.swing.JTextField phoneNoInput;
+    public javax.swing.JTextField phoneNoInput;
     // End of variables declaration//GEN-END:variables
 }

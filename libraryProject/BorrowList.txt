@@ -1,3 +1,6 @@
-BY998135,The Hunger Games (The Hunger Games #1),Suzanne Collins,01/12/22,not returned yet,palatip.jant@bumail.net,0623807621
-QD785017,Perfume: The Story of a Murderer,Patrick Süskind,01/12/22,not returned yet,palatip.jant@bumail.net,0623807621
-NB453014,Wild Swans: Three Daughters of China,Jung Chang,01/12/22,not returned yet,palatip.jant@bumail.net,0623807621
+BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,01/12/22,01/12/22,admin,321
+HB112005,The Guns of August,Barbara W. Tuchman,01/12/22,not returned yet,admin,321
+HB112012,The Devil in the White City,Erik Larson,01/12/22,01/12/22,fee,321
+BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,01/12/22,01/12/22,fee,321
+BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,01/12/22,01/12/22,admin,321432432
+BI387008,American Caesar: Douglas MacArthur 1880-1964,William Manchester,01/12/22,01/12/22,fee,689789
