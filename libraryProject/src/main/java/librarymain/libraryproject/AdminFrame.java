@@ -4,17 +4,68 @@
  */
 package librarymain.libraryproject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author wenda
  */
 public class AdminFrame extends javax.swing.JFrame {
-
+    String[] AdminArray = null;
+    List<String> AdminID = new ArrayList<>();
+    List<String> AdminName = new ArrayList<>();
+    List<String> AdminEmail = new ArrayList<>();
+    List<String> AdminBorrowDate = new ArrayList<>();
+    List<String> AdminReturnDate = new ArrayList<>();
+    List<String> AdminPhone = new ArrayList<>();
     /**
      * Creates new form AdminFrame
      */
     public AdminFrame() {
         initComponents();
+        ShowReturn();
+    }
+    private void ShowReturn() {
+        
+        //System.out.println(userNameInput + "  " +passwordInput);
+        try {
+            Scanner ReturnFile = new Scanner(new File("BorrowList.txt"));
+            while (ReturnFile.hasNextLine())
+            {
+              String s = ReturnFile.nextLine();  
+              AdminArray = s.split(",");
+              
+              if (AdminArray[4].equals("not returned yet")) {
+                    AdminID.add(AdminArray[0]);
+                    AdminName.add(AdminArray[1]);
+                    AdminEmail.add(AdminArray[5]);
+                    AdminBorrowDate.add(AdminArray[3]);
+                    AdminReturnDate.add(AdminArray[4]);
+                    AdminPhone.add(AdminArray[6]);
+              }
+          
+              
+            } 
+            System.out.println(AdminID);
+            ReturnFile.close();
+            
+        } catch (FileNotFoundException e) {
+            JOptionPane.showMessageDialog(null,
+                    "User Database Not Found", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+        DefaultTableModel AdminModel = (DefaultTableModel) AdminTable.getModel();
+        for (int i = 0; i < AdminID.size(); i++){
+            Object[] BorrowRow = { AdminID.get(i), AdminName.get(i), 
+                AdminEmail.get(i), AdminBorrowDate.get(i), AdminReturnDate.get(i), AdminPhone.get(i)};
+            AdminModel.addRow(BorrowRow);
+        }
     }
 
     /**
@@ -29,7 +80,7 @@ public class AdminFrame extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblAdminHead = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        AdminTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 227, 227));
@@ -39,11 +90,12 @@ public class AdminFrame extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 227, 227));
+        jPanel1.setPreferredSize(new java.awt.Dimension(700, 495));
 
         lblAdminHead.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         lblAdminHead.setText("Manage Borrow Book");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        AdminTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -66,7 +118,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        AdminTable.setGridColor(new java.awt.Color(255, 255, 255));
+        AdminTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        jScrollPane1.setViewportView(AdminTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -74,10 +128,10 @@ public class AdminFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(169, 169, 169)
+                .addGap(225, 225, 225)
                 .addComponent(lblAdminHead)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -87,8 +141,8 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE)
                 .addComponent(lblAdminHead)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(132, 132, 132))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -141,9 +195,9 @@ public class AdminFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable AdminTable;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel lblAdminHead;
     // End of variables declaration//GEN-END:variables
 }

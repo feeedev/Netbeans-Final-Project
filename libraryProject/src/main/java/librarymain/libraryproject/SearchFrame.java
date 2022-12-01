@@ -4,10 +4,13 @@
  */
 package librarymain.libraryproject;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -67,6 +70,11 @@ public class SearchFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableSearchMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableSearch);
 
         javax.swing.GroupLayout searchPanelLayout = new javax.swing.GroupLayout(searchPanel);
@@ -109,6 +117,10 @@ public class SearchFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tableSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableSearchMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tableSearchMouseClicked
     
     private void ShowAllBook() {
         String[] AllbookArray = null;
