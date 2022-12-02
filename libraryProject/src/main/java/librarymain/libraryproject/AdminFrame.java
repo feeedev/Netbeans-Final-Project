@@ -6,6 +6,10 @@ package librarymain.libraryproject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -31,6 +35,7 @@ public class AdminFrame extends javax.swing.JFrame {
         initComponents();
         ShowReturn();
     }
+    
     private void ShowReturn() {
         
         try {
@@ -58,10 +63,18 @@ public class AdminFrame extends javax.swing.JFrame {
                     "User Database Not Found", "Error",
                     JOptionPane.ERROR_MESSAGE);
         }
+        LocalDateTime myDateObj = LocalDateTime.now();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
+        libraData.setFormattedDate(myDateObj.format(myFormatObj));
+        
         DefaultTableModel AdminModel = (DefaultTableModel) AdminTable.getModel();
         for (int i = 0; i < AdminID.size(); i++){
+            final LocalDate Borrow = LocalDate.parse(AdminBorrowDate.get(i), myFormatObj);
+            final LocalDate today = LocalDate.parse(libraData.getFormattedDate(), myFormatObj);
+            final long daysInBetween = ChronoUnit.DAYS.between(Borrow, today);
+            String shownumberofdays = daysInBetween + " days";
             Object[] BorrowRow = { AdminID.get(i), AdminName.get(i), 
-                AdminEmail.get(i), AdminBorrowDate.get(i), AdminReturnDate.get(i), AdminPhone.get(i)};
+                AdminEmail.get(i), AdminBorrowDate.get(i), AdminReturnDate.get(i), AdminPhone.get(i), shownumberofdays };
             AdminModel.addRow(BorrowRow);
         }
     }
@@ -99,14 +112,14 @@ public class AdminFrame extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Email", "Date", "Status", "Phone No."
+                "ID", "Name", "Email", "Date", "Status", "Phone No.", "Number of days"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -117,8 +130,9 @@ public class AdminFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        AdminTable.setGridColor(new java.awt.Color(255, 255, 255));
-        AdminTable.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        AdminTable.setGridColor(new java.awt.Color(51, 51, 51));
+        AdminTable.setSelectionBackground(new java.awt.Color(255, 227, 227));
+        AdminTable.setSelectionForeground(new java.awt.Color(51, 51, 51));
         jScrollPane1.setViewportView(AdminTable);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -129,23 +143,19 @@ public class AdminFrame extends javax.swing.JFrame {
                 .addGap(233, 233, 233)
                 .addComponent(lblAdminHead)
                 .addContainerGap(237, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(3, 3, 3)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 694, Short.MAX_VALUE)
-                    .addGap(3, 3, 3)))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lblAdminHead)
-                .addContainerGap(457, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addGap(62, 62, 62)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(12, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

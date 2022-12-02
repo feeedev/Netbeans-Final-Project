@@ -229,7 +229,7 @@ public class BorrowFrame extends javax.swing.JFrame {
         libraData.setInputbookPhone(phoneNoInput.getText());
         LocalDateTime myDateObj = LocalDateTime.now();
         DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd/MM/yy");  
-        String formattedDate = myDateObj.format(myFormatObj);
+        libraData.setFormattedDate(myDateObj.format(myFormatObj));
         int indexBRID = BorrowHisID.indexOf(libraData.getSelectedItem());
         if (libraData.getSelectedItem() == "Select Book" || libraData.getInputbookPhone().equals("") || bkNameInput.getText() == null || bkAuthortxtF.getText() == null) {
                 JOptionPane.showMessageDialog(null,
@@ -248,9 +248,9 @@ public class BorrowFrame extends javax.swing.JFrame {
             try {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("BorrowList.txt", true));
                 if (AllBorrowAlluserID.isEmpty()){
-                    writer.append(AllBookID.get(libraData.getIndexBK())+","+libraData.getSelectedbkName()+","+libraData.getSelectedbkAuthor()+","+formattedDate+","+"not returned yet"+","+libraData.getUserNameInput()+","+libraData.getInputbookPhone());
+                    writer.append(AllBookID.get(libraData.getIndexBK())+","+libraData.getSelectedbkName()+","+libraData.getSelectedbkAuthor()+","+libraData.getFormattedDate()+","+"not returned yet"+","+libraData.getUserNameInput()+","+libraData.getInputbookPhone());
                 } else {
-                    writer.append("\n"+AllBookID.get(libraData.getIndexBK())+","+libraData.getSelectedbkName()+","+libraData.getSelectedbkAuthor()+","+formattedDate+","+"not returned yet"+","+libraData.getUserNameInput()+","+libraData.getInputbookPhone());
+                    writer.append("\n"+AllBookID.get(libraData.getIndexBK())+","+libraData.getSelectedbkName()+","+libraData.getSelectedbkAuthor()+","+libraData.getFormattedDate()+","+"not returned yet"+","+libraData.getUserNameInput()+","+libraData.getInputbookPhone());
                 }
                 writer.close();
                 JOptionPane.showMessageDialog(null,

@@ -1,6 +1,6 @@
-BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,01/12/22,01/12/22,admin,321
-HB112005,The Guns of August,Barbara W. Tuchman,01/12/22,not returned yet,admin,321
-HB112012,The Devil in the White City,Erik Larson,01/12/22,01/12/22,fee,321
-BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,01/12/22,01/12/22,fee,321
-BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,01/12/22,01/12/22,admin,321432432
-BI387008,American Caesar: Douglas MacArthur 1880-1964,William Manchester,01/12/22,01/12/22,fee,689789
+BY998137,The Giver (The Giver #1),Lois Lowry,02/12/22,not returned yet,fee,3214323423
+HB112001,John Adams,David McCullough,02/12/22,02/12/22,fee,32143234123
+HB112011,A People's History of the United States,Howard Zinn,02/12/22,02/12/22,admin,321
+BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,02/12/22,02/12/22,palatip.jant@bumail.net,0623807621
+BI387011,The Strangest Man: The Hidden Life of Paul Dirac Mystic of the Atom,Graham Farmelo,02/12/22,not returned yet,palatip.jant@bumail.net,0623807621
+HB112011,A People's History of the United States,Howard Zinn,02/12/22,not returned yet,palatip.jant@bumail.net,0623807621

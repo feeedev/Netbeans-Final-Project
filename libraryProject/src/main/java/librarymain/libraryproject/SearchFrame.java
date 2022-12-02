@@ -36,8 +36,6 @@ public class SearchFrame extends javax.swing.JFrame {
                 Point point = mouseEvent.getPoint();
                 int row = table.rowAtPoint(point);
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    // your valueChanged overridden method 
-                    System.out.println(row);
                     BorrowFrame brF = new BorrowFrame();
                     brF.setVisible(true);
                     brF.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -89,6 +87,9 @@ public class SearchFrame extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableSearch.setGridColor(new java.awt.Color(51, 51, 51));
+        tableSearch.setSelectionBackground(new java.awt.Color(255, 227, 227));
+        tableSearch.setSelectionForeground(new java.awt.Color(51, 51, 51));
         tableSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableSearchMouseClicked(evt);

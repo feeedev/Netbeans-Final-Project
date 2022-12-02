@@ -237,8 +237,10 @@ public class homeJF extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tableBkBorrow.setGridColor(new java.awt.Color(204, 255, 255));
+        tableBkBorrow.setGridColor(new java.awt.Color(51, 51, 51));
+        tableBkBorrow.setRowSelectionAllowed(false);
         tableBkBorrow.setSelectionBackground(new java.awt.Color(255, 153, 153));
+        tableBkBorrow.setSelectionForeground(new java.awt.Color(51, 51, 51));
         tableBkBorrow.setShowGrid(true);
         jScrollPane1.setViewportView(tableBkBorrow);
 
@@ -347,7 +349,7 @@ public class homeJF extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-    
+
     private void LoadImage() {
         ImageIcon imageIcon1 = new ImageIcon("BULogo.png");
         Image image1 = imageIcon1.getImage();
