@@ -1,0 +1,100 @@
+BY998133,Harry Potter and the Sorcerer's Stone #1,J.K. Rowling,BY133/998
+BY998134,The Lightning Thief (Percy Jackson and the Olympians #1),Rick Riordan,BY134/998
+BY998135,The Hunger Games (The Hunger Games #1),Suzanne Collins,BY135/998
+BY998136,Twilight (The Twilight Saga #1),Stephenie Meyer,BY136/998
+BY998137,The Giver (The Giver #1),Lois Lowry,BY137/998
+BY998138,The Fault in Our Stars,John Green,BY138/998
+BY998139,City of Bones (The Mortal Instruments #1),Cassandra Clare,BY139/998
+BY998140,Divergent (Divergent #1),Cassandra Clare,BY140/998
+BY998141,To Kill a Mockingbird,Harper Lee,BY141/998
+HB112001,John Adams,David McCullough,HB001/112
+HB112002,The Rise and Fall of the Third Reich: A History of Nazi Germany,William L. Shirer,HB002/112
+HB112003,1776,David McCullough,HB003/112
+HB112004,Team of Rivals: The Political Genius of Abraham Lincoln,Doris Kearns Goodwin,HB004/112
+HB112005,The Guns of August,Barbara W. Tuchman,HB005/112
+HB112006,Guns Germs and Steel: The Fates of Human Societies,Jared Diamond,HB006/112
+HB112007,The Diary of a Young Girl,Anne Frank,HB007/112
+HB112008,Unbroken: A World War II Story of Survival Resilience and Redemption,Laura Hillenbrand,HB008/112
+HB112009,Bury My Heart at Wounded Knee: An Indian History of the American West,Dee Brown,HB009/112
+HB112010,A Distant Mirror: The Calamitous 14th Century,Barbara W. Tuchman,HB010/112
+HB112011,A People's History of the United States,Howard Zinn,HB011/112
+HB112012,The Devil in the White City,Erik Larson,HB012/112
+HB112013,Battle Cry of Freedom,James M. McPherson,HB013/112
+HB112014,A Short History of Nearly Everything,Bill Bryson,HB014/112
+HB112015,Night (The Night Trilogy #1),Elie Wiesel,HB015/112
+HB112016,The Histories,Herodotus,HB016/112
+BI387001,Steve Jobs,Walter Isaacson,BI001/387
+BI387002,Einstein: His Life and Universe,Walter Isaacson,BI002/387
+BI387003,Into the Wild,Jon Krakauer,BI003/387
+BI387004,Steve Jobs: The Unauthorized Autobiography,J.T. Owens,BI004/387
+BI387005,Frida Kahlo: 1907-1954 Pain and Passion,Andrea Kettenmann,BI005/387
+BI387006,The Twelve Caesars,Suetonius,BI006/387
+BI387007,Grant,Ron Chernow,BI007/387
+BI387008,American Caesar: Douglas MacArthur 1880-1964,William Manchester,BI008/387
+BI387009,Leonardo da Vinci,Walter Isaacson,BI009/387
+BI387010,Malcolm X: A Life of Reinvention,Manning Marable,BI010/387
+BI387011,The Strangest Man: The Hidden Life of Paul Dirac Mystic of the Atom,Graham Farmelo,BI011/387
+BI387012,Hitler: A Study in Tyranny,Alan Bullock,BI012/387
+BI387013,When Character Was King: A Story of Ronald Reagan,Peggy Noonan,BI013/387
+BI387014,The Real James Herriot: A Memoir of My Father,Jim Wight,BI014/387
+BI387015,iCon: Steve Jobs the Greatest Second Act in the History of Business,Jeffrey S. Young,BI015/387
+BI387016,The Confessions of St. Augustine,Augustine of Hippo,BI016/387
+BI387017,Ronald Reagan: How an Ordinary Man Became an Extraordinary Leader,Dinesh D'Souza,BI017/387
+BI387018,A Beautiful Mind,Sylvia Nasar,BI018/387
+BI387019,Room Full of Mirrors: A Biography of Jimi Hendrix,Charles R. Cross,BI019/387
+QD785001,1984,George Orwell,QD001/785
+QD785002,Dracula,Bram Stoker,QD002/785
+QD785003,American Gods (American Gods #1),Neil Gaiman,QD003/785
+QD785004,Fahrenheit 451,Ray Bradbury,QD004/785
+QD785005,Frankenstein,Mary Wollstonecraft Shelley,QD005/785
+QD785006,A Clockwork Orange,Anthony Burgess,QD006/785
+QD785007,The Complete Stories and Poems,Edgar Allan Poe,QD007/785
+QD785008,The Picture of Dorian Gray,Oscar Wilde,QD008/785
+QD785009,The Road,Cormac McCarthy,QD009/785
+QD785010,Lord of the Flies,William Golding,QD010/785
+QD785011,Animal Farm,George Orwell,QD011/785
+QD785012,The Shining,Stephen King,QD012/785
+QD785013,American Psycho,Bret Easton Ellis,QD013/785
+QD785014,Brave New World,Aldous Huxley,QD014/785
+QD785015,The Handmaid's Tale (The Handmaid's Tale #1),Margaret Atwood,QD015/785
+QD785016,Interview with the Vampire (The Vampire Chronicles #1),Anne Rice,QD016/785
+QD785017,Perfume: The Story of a Murderer,Patrick Süskind,QD017/785
+QD785018,One Flew Over the Cuckoo's Nest,Ken Kesey,QD018/785
+NB453001,The Diary of a Young Girl,Anne Frank,NB001/453
+NB453002,Soul Cure: How to Heal Your Pain and Discover Your Purpose,Gregory Dickow,NB002/453
+NB453003,Why They Stay: Sex Scandals Deals and Hidden Agendas of Eight Political Wives,Anne Michaud ,NB003/453
+NB453004,Eat Pray Love,Elizabeth Gilbert ,NB004/453
+NB453005,Tuesdays with Morrie,Mitch Albom,NB005/453
+NB453006,In Cold Blood,Truman Capote,NB006/453
+NB453007,How to Win Friends and Influence People,Dale Carnegie,NB007/453
+NB453008,The 7 Habits of Highly Effective People: Powerful Lessons in Personal Change,Stephen R. Covey,NB008/453
+NB453009,The Art of War,Sun Tzu,NB009/453
+NB453010,Fierce Love: Creating a Love that Lasts—One Conversation at a Time,Susan Scott,NB010/453
+NB453011,The Lighthouse Effect: How Ordinary People Can Have an Extraordinary Impact in the World,Steve Pemberton ,NB011/453
+NB453012,Night (The Night Trilogy #1),Elie Wiesel,NB012/453
+NB453013,Angela's Ashes (Frank McCourt #1),Frank McCourt,NB013/453
+NB453014,Wild Swans: Three Daughters of China,Jung Chang,NB014/453
+NB453015,The God Delusion,Richard Dawkins,NB015/453
+NB453016,Chicken Soup for the Soul,Jack Canfield,NB016/453
+NB453017,The Prophet,Kahlil Gibran,NB017/453
+NB453018,Meditations,Marcus Aurelius,NB018/453
+FB740001,Our Lady of Perpetual Hunger: A Memoir,Lisa Donovan,FB001/740
+FB740002,Make It Messy: My Perfectly Imperfect Life,Marcus Samuelsson,FB002/740
+FB740003,Picnic in Provence: A Memoir with Recipes,Elizabeth Bard,FB003/740
+FB740004,Mastering the Art of Soviet Cooking: A Memoir of Food and Longing,Anya von Bremzen,FB004/740
+FB740005,Yes Chef,Marcus Samuelsson,FB005/740
+FB740006,Hunt Gather Cook: Finding the Forgotten Feast,Hank Shaw,FB006/740
+FB740007,Eat Joy: Stories & Comfort Food from 31 Celebrated Writers,Natalie Eve Garrett,FB007/740
+FB740008,Tomato Rhapsody: A Fable of Love Lust & Forbidden Fruit,Adam Schell,FB008/740
+FB740009,The Da Vinci Code (Robert Langdon #2),Dan Brown,FB009/740
+FB740010,A Mess of Greens: Southern Gender and Southern Food,Elizabeth S.D. Engelhardt,FB010/740
+FB740011,Lunch in Paris: A Love Story with Recipes,Elizabeth Bard,FB011/740
+FB740012,Tender at the Bone: Growing Up at the Table,Ruth Reichl,FB012/740
+FB740013,Backstory,William L. Myers Jr.,FB013/740
+FB740014,Eat a Peach,David Chang,FB014/740
+FB740015,Memories of Philippine Kitchens,Amy Besa,FB015/740
+FB740016,Notes from a Young Black Chef,Kwame Onwuachi,FB016/740
+FB740017,Growing up in a Korean Kitchen: A Cookbook,Hi Sooshin Hepinstall,FB017/740
+FB740018,Building Houses Out of Chicken Legs: Black Women Food and Power,Psyche A. Williams-Forson,FB018/740
+FB740019,Save Me the Plums: My Gourmet Memoir,Ruth Reichl,FB019/740
+FB740020,The Ungarnished Truth: A Cooking Contest Memoir,Ellie Mathews,FB020/740
